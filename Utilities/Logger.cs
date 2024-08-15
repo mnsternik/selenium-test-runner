@@ -31,10 +31,10 @@ namespace WinFormsTestRunner.Utilities
         {
             var listViewItem = new ListViewItem(DateTime.Now.ToString("HH:mm:ss"));
             listViewItem.SubItems.Add(message);
-            listViewItem.SubItems.Add(isSuccess ? "Success" : "Failure");
+            listViewItem.SubItems.Add(isSuccess ? "Sukces" : "Błąd");
 
             _listView.Items.Add(listViewItem);
-            _listView.EnsureVisible(_listView.Items.Count - 1); // Scroll to the latest entry
+            _listView.EnsureVisible(_listView.Items.Count - 1);
         }
     }
 }
