@@ -32,13 +32,16 @@
             EndTestButton = new Button();
             RetryStepButton = new Button();
             NextStepButton = new Button();
-            TestMessagesContainer = new ListView();
             ScenarioPathButton = new Button();
             ScenarioPathText = new TextBox();
             ScenarioPathLabel = new Label();
             StartTestButton = new Button();
             TestStatusText = new TextBox();
             TestStatusLabel = new Label();
+            TestMessagesContainer = new ListView();
+            StepCounterColumn = new ColumnHeader();
+            StepNameColumn = new ColumnHeader();
+            StepStatusColumn = new ColumnHeader();
             SuspendLayout();
             // 
             // StopTestButton
@@ -84,16 +87,6 @@
             NextStepButton.Text = "Przejdź do kolejnego kroku";
             NextStepButton.UseVisualStyleBackColor = true;
             NextStepButton.Click += NextStepButton_Click;
-            // 
-            // TestMessagesContainer
-            // 
-            TestMessagesContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            TestMessagesContainer.Location = new Point(209, 11);
-            TestMessagesContainer.Margin = new Padding(4, 3, 4, 3);
-            TestMessagesContainer.Name = "TestMessagesContainer";
-            TestMessagesContainer.Size = new Size(579, 420);
-            TestMessagesContainer.TabIndex = 17;
-            TestMessagesContainer.UseCompatibleStateImageBehavior = false;
             // 
             // ScenarioPathButton
             // 
@@ -153,15 +146,42 @@
             TestStatusLabel.TabIndex = 11;
             TestStatusLabel.Text = "Status:";
             // 
+            // TestMessagesContainer
+            // 
+            TestMessagesContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TestMessagesContainer.AutoArrange = false;
+            TestMessagesContainer.Columns.AddRange(new ColumnHeader[] { StepCounterColumn, StepNameColumn, StepStatusColumn });
+            TestMessagesContainer.FullRowSelect = true;
+            TestMessagesContainer.LabelWrap = false;
+            TestMessagesContainer.Location = new Point(191, 15);
+            TestMessagesContainer.Name = "TestMessagesContainer";
+            TestMessagesContainer.Size = new Size(582, 421);
+            TestMessagesContainer.TabIndex = 22;
+            TestMessagesContainer.UseCompatibleStateImageBehavior = false;
+            TestMessagesContainer.View = View.Details;
+            // 
+            // StepCounterColumn
+            // 
+            StepCounterColumn.Text = "Krok";
+            // 
+            // StepNameColumn
+            // 
+            StepNameColumn.Text = "Nazwa kroku";
+            StepNameColumn.Width = 458;
+            // 
+            // StepStatusColumn
+            // 
+            StepStatusColumn.Text = "Status";
+            // 
             // TestingTabControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(TestMessagesContainer);
             Controls.Add(StopTestButton);
             Controls.Add(EndTestButton);
             Controls.Add(RetryStepButton);
             Controls.Add(NextStepButton);
-            Controls.Add(TestMessagesContainer);
             Controls.Add(ScenarioPathButton);
             Controls.Add(ScenarioPathText);
             Controls.Add(ScenarioPathLabel);
@@ -169,7 +189,7 @@
             Controls.Add(TestStatusText);
             Controls.Add(TestStatusLabel);
             Name = "TestingTabControl";
-            Size = new Size(792, 476);
+            Size = new Size(787, 476);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -180,12 +200,15 @@
         private Button EndTestButton;
         private Button RetryStepButton;
         private Button NextStepButton;
-        private ListView TestMessagesContainer;
         private Button ScenarioPathButton;
         private TextBox ScenarioPathText;
         private Label ScenarioPathLabel;
         private Button StartTestButton;
         private TextBox TestStatusText;
         private Label TestStatusLabel;
+        private ListView TestMessagesContainer;
+        private ColumnHeader StepCounterColumn;
+        private ColumnHeader StepNameColumn;
+        private ColumnHeader StepStatusColumn;
     }
 }

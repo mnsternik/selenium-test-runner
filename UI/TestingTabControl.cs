@@ -29,12 +29,6 @@ namespace WinFormsTestRunner
             NextStepButton.Enabled = ButtonsStateHandler.GetButtonState("NextStepButton");
             RetryStepButton.Enabled = ButtonsStateHandler.GetButtonState("RetryStepButton");
             ScenarioPathButton.Enabled = ButtonsStateHandler.GetButtonState("ScenarioPathButton");
-
-            TestMessagesContainer.Columns.Add("Nr kroku", 80);
-            TestMessagesContainer.Columns.Add("Nazwa kroku", 400);
-            TestMessagesContainer.Columns.Add("Status", 80);
-            TestMessagesContainer.View = View.Details;
-            TestMessagesContainer.FullRowSelect = true;
         }
 
         private void OnButtonStateChanged(string buttonName, bool isEnabled)
