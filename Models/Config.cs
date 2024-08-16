@@ -21,12 +21,20 @@ namespace WinFormsTestRunner.Models
             ElementWaitingTimeout = elementWaitingTimeout;
         }
 
+        public Config(Config config)
+        {
+            DriverPath = config.DriverPath;
+            FirefoxPath = config.FirefoxPath;
+            LogsFolderPath = config.LogsFolderPath;
+            ElementWaitingTimeout = config.ElementWaitingTimeout;
+        }
+
         public Config()
         {
             DriverPath = string.Empty;
             FirefoxPath = string.Empty;
             LogsFolderPath = string.Empty;
-            ElementWaitingTimeout = 0;
+            ElementWaitingTimeout = 1;
         }
     }
 }
