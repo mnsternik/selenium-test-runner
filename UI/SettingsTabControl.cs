@@ -15,7 +15,7 @@ namespace WinFormsTestRunner
 {
     public partial class SettingsTabControl : UserControl
     {
-        private readonly Config config = new Config();
+        private Config? _config;
 
         public SettingsTabControl()
         {
@@ -25,10 +25,12 @@ namespace WinFormsTestRunner
 
         private void SettingsTabControl_Load(object? sender, EventArgs e)
         {
-            DriverPathText.Text = ConfigManager.DriverPath;
-            BrowserPathText.Text = ConfigManager.FirefoxPath;
-            LogsPathText.Text = ConfigManager.LogsFolderPath;
-            WaitingTimeoutText.Text = ConfigManager.ElementWaitingTimeout.ToString();
+            _config = ConfigManager.Config;
+
+            DriverPathText.Text = _config.DriverPath;
+            BrowserPathText.Text = _config.FirefoxPath;
+            LogsPathText.Text = _config.LogsFolderPath;
+            WaitingTimeoutText.Text = _config.ElementWaitingTimeout.ToString();
         }
 
         //to delete?
@@ -42,35 +44,31 @@ namespace WinFormsTestRunner
         {
             var driverPath = DialogFileHandler.GetFilePath("Executable files (*.exe)|*.exe");
             DriverPathText.Text = driverPath;
-            config.DriverPath = driverPath;
+            _config.DriverPath = driverPath;
         }
 
         private void BrowserPathButton_Click(object sender, EventArgs e)
         {
             var browserPath = DialogFileHandler.GetFilePath("Executable files (*.exe)|*.exe");
             BrowserPathText.Text = browserPath;
-            config.FirefoxPath = browserPath;
+            _config.FirefoxPath = browserPath;
         }
 
         private void LogsPathButton_Click(object sender, EventArgs e)
         {
             var logsPath = DialogFileHandler.GetFolderPath();
             LogsPathText.Text = logsPath;
-            config.LogsFolderPath = logsPath;
+            _config.LogsFolderPath = logsPath;
         }
 
         private void WaitingTimeoutText_TextChanged(object sender, EventArgs e)
         {
-            config.ElementWaitingTimeout = int.Parse(WaitingTimeoutText.Text);
+            _config.ElementWaitingTimeout = int.Parse(WaitingTimeoutText.Text);
         }
 
         private void SaveConfigButton_Click(object sender, EventArgs e)
         {
-            ConfigManager.DriverPath = config.DriverPath;
-            ConfigManager.FirefoxPath = config.FirefoxPath;
-            ConfigManager.LogsFolderPath = config.LogsFolderPath;
-            ConfigManager.ElementWaitingTimeout = config.ElementWaitingTimeout;
-
+            ConfigManager.Config = _config; 
             ConfigManager.SaveConfig();
         }
     }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WinFormsTestRunner.Utilities;
 using WinFormsTestRunner.UI;
 using System.Windows.Forms.VisualStyles;
+using WinFormsTestRunner.Core;
 
 namespace WinFormsTestRunner
 {
@@ -65,6 +66,8 @@ namespace WinFormsTestRunner
         {
             var scenarioPath = DialogFileHandler.GetFilePath("JSON files (*.json)|*.json|All files (*.*)|*.*");
             ScenarioPathText.Text = scenarioPath;
+
+            TestRunner.CreateTestScenario(scenarioPath);
         }
 
         private void StartTestButton_Click(object sender, EventArgs e)
@@ -77,7 +80,7 @@ namespace WinFormsTestRunner
             ButtonsStateHandler.SetButtonState("ScenarioPathButton", false);
 
             // Logic
-            Logger.Log("Start został kilknięty", true);
+            TestRunner.Run(); 
         }
 
         private void StopTestButton_Click(object sender, EventArgs e)
