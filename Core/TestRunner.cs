@@ -17,16 +17,11 @@ namespace WinFormsTestRunner.Core
         private static List<Step> Steps { get; set; } = new List<Step>();
         private static int _stepCounter = 0;
 
-        //static TestRunner()
-        //{
-        //    InitDriver();
-        //}
-
         public static void Run()
         {
             InitDriver();
-            //Logger.Log($"Uruchamianie scenariusza testowego: {ts.Name}", true)
-            Logger.Log($"Uruchamianie scenariusza testowego.", true);;
+
+            Logger.Log($"Uruchamianie scenariusza testowego: [nazwa]", true);;
             foreach (var step in Steps)
             {
                 step.ExecuteAndLog(_stepCounter);
