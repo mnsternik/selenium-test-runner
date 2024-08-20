@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Exceptions;
 using WinFormsTestRunner.Models;
+using WinFormsTestRunner.UI;
 using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
@@ -23,13 +25,12 @@ namespace WinFormsTestRunner.Steps
         {
             try
             {
-                Logger.Log($"Wykonywanie kroku {stepCounter}: {Name}");
                 HandleAction();
-                Logger.Log($"{Name} -> OK", true);
+                Logger.Log($"{Name}", true);
             }
             catch (TestRunnerException ex)
             {
-                Logger.Log(ex.Message, true);
+                Logger.Log(ex.Message, false);
                 HandleFailure(stepCounter, ex.Message);
             }
         }
@@ -41,27 +42,7 @@ namespace WinFormsTestRunner.Steps
 
         public void HandleFailure(int stepCounter, string message)
         {
-            //if (!string.IsNullOrEmpty(BackupScenarioPath))
-            //{
-            //    TestScenario ts = TestScenario.LoadScenario(BackupScenarioPath);
-            //    TestRunner.Run(ts);
-            //}
-            //else
-            //{
-            //    string decision = UserInputUtility.GetFailureDecisionFromUser();
-            //    switch (decision)
-            //    {
-            //        case "Y": // dodaj błąd do podsumowania i przejdź do kolejnego kroku
-            //            Summary.AddFailedStep(stepCounter, message);
-            //            break;
-            //        case "R": // wykonaj krok ponownie
-            //            ExecuteAndLog(stepCounter);
-            //            break;
-            //        case "N": // dodaj błąd do posumowania i zakończ działanie programu 
-            //            Summary.AddFailedStep(stepCounter, message);
-            //            throw new FailedStepException("Wykonywanie scenariusza zostało przerwane."); // how to catch it? Maybe it should be other type of exception
-            //    }
-            //}
+            // TODO
         }
 
         public virtual IWebElement GetElement()
