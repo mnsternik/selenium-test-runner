@@ -8,32 +8,47 @@ using WinFormsTestRunner.Configuration;
 using WinFormsTestRunner.Models;
 using WinFormsTestRunner.Steps;
 using WinFormsTestRunner.Utilities;
+using WinFormsTestRunner.Exceptions;
+using WinFormsTestRunner.UI;
 
 namespace WinFormsTestRunner.Core
 {
     internal class TestRunner
     {
-        public static FirefoxDriver? Driver { get; set; }
         private static List<Step> Steps { get; set; } = new List<Step>();
         private static int _stepCounter = 0;
 
-        public static void Run()
+        public static FirefoxDriver? Driver { get; set; }
+
+        public static event Action<string>? UserActionOccurred;
+
+        public async static Task RunAsync() 
         {
             InitDriver();
 
-            Logger.Log($"Uruchamianie scenariusza testowego: [nazwa]", true);;
+            UIStateHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+            Logger.Log($"Uruchamianie scenariusza testowego: [nazwa]", true);
+
             foreach (var step in Steps)
             {
-                step.ExecuteAndLog(_stepCounter);
+                await Task.Run(() => step.ExecuteAndLog(_stepCounter));
                 _stepCounter++;
             }
+        }
+
+        public static void EndTest()
+        {
+            throw new TestRunnerException("Test został zakończony");
         }
 
         public static void CreateTestScenario(string scenarioPath)
         {
             TestScenario ts = TestScenario.LoadScenario(scenarioPath); 
+
             Steps.Clear();
             Steps = CreateListOfSteps(ts);
+
+            UIStateHandler.SetTestStatus("Gotowy do uruchomienia");
         }
 
         public static List<Step> CreateListOfSteps(TestScenario ts)
@@ -44,6 +59,11 @@ namespace WinFormsTestRunner.Core
                 steps.Add(GenericStep.TransformIntoSpecifedStep(step));
             }
             return steps;
+        }
+
+        public static void TriggerUserAction(string action)
+        {
+            UserActionOccurred?.Invoke(action);
         }
 
         private static void InitDriver()
