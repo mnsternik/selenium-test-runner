@@ -21,6 +21,9 @@ namespace WinFormsTestRunner.Steps
         public string? ElementId { get; set; } = elementId;
         public string? BackupScenarioPath { get; set; } = backupScenarioPath;
 
+        private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
+        private static string _userAction;
+
         public void ExecuteAndLog(int stepCounter)
         {
             try
@@ -42,7 +45,32 @@ namespace WinFormsTestRunner.Steps
 
         public void HandleFailure(int stepCounter, string message)
         {
-            // TODO
+            UIStateHandler.SetButtonState("RetryStepButton", true);
+            UIStateHandler.SetButtonState("NextStepButton", true);
+            UIStateHandler.SetButtonState("StopTestButton", true);
+
+            _waitHandle.Reset(); 
+            TestRunner.UserActionOccurred += OnUserActionOccurred; 
+
+            _waitHandle.WaitOne(); // Czekanie na wywołanie eventu UserActionOccurred
+            TestRunner.UserActionOccurred -= OnUserActionOccurred; 
+
+            switch (_userAction)
+            {
+                case "ContinueStep":
+                    break;
+                case "RetryStep":
+                    ExecuteAndLog(stepCounter);
+                    break;
+                case "StopTest":
+                    throw new TestRunnerException("Wykonywanie scenariusza testowego zostało zatrzymane przez użytkownika.");
+            }
+        }
+
+        private void OnUserActionOccurred(string action)
+        {
+            _userAction = action;
+            _waitHandle.Set(); // Odblokowanie wątku
         }
 
         public virtual IWebElement GetElement()
