@@ -34,7 +34,6 @@
             NextStepButton = new Button();
             ScenarioPathButton = new Button();
             ScenarioPathText = new TextBox();
-            ScenarioPathLabel = new Label();
             StartTestButton = new Button();
             TestStatusText = new TextBox();
             TestStatusLabel = new Label();
@@ -42,6 +41,7 @@
             StepCounterColumn = new ColumnHeader();
             StepNameColumn = new ColumnHeader();
             StepStatusColumn = new ColumnHeader();
+            ScenarioPathLabel = new Label();
             SuspendLayout();
             // 
             // StopTestButton
@@ -57,7 +57,7 @@
             // 
             // EndTestButton
             // 
-            EndTestButton.Location = new Point(593, 442);
+            EndTestButton.Location = new Point(583, 442);
             EndTestButton.Margin = new Padding(4, 3, 4, 3);
             EndTestButton.Name = "EndTestButton";
             EndTestButton.Size = new Size(190, 26);
@@ -68,7 +68,7 @@
             // 
             // RetryStepButton
             // 
-            RetryStepButton.Location = new Point(209, 442);
+            RetryStepButton.Location = new Point(191, 442);
             RetryStepButton.Margin = new Padding(4, 3, 4, 3);
             RetryStepButton.Name = "RetryStepButton";
             RetryStepButton.Size = new Size(175, 26);
@@ -79,10 +79,10 @@
             // 
             // NextStepButton
             // 
-            NextStepButton.Location = new Point(391, 442);
+            NextStepButton.Location = new Point(374, 442);
             NextStepButton.Margin = new Padding(4, 3, 4, 3);
             NextStepButton.Name = "NextStepButton";
-            NextStepButton.Size = new Size(194, 26);
+            NextStepButton.Size = new Size(201, 26);
             NextStepButton.TabIndex = 18;
             NextStepButton.Text = "Przejdź do kolejnego kroku";
             NextStepButton.UseVisualStyleBackColor = true;
@@ -107,16 +107,6 @@
             ScenarioPathText.Size = new Size(168, 23);
             ScenarioPathText.TabIndex = 15;
             // 
-            // ScenarioPathLabel
-            // 
-            ScenarioPathLabel.AutoSize = true;
-            ScenarioPathLabel.Location = new Point(13, 15);
-            ScenarioPathLabel.Margin = new Padding(4, 0, 4, 0);
-            ScenarioPathLabel.Name = "ScenarioPathLabel";
-            ScenarioPathLabel.Size = new Size(109, 15);
-            ScenarioPathLabel.TabIndex = 14;
-            ScenarioPathLabel.Text = "Scenariusz testowy:";
-            // 
             // StartTestButton
             // 
             StartTestButton.Location = new Point(13, 183);
@@ -133,6 +123,7 @@
             TestStatusText.Location = new Point(13, 150);
             TestStatusText.Margin = new Padding(4, 3, 4, 3);
             TestStatusText.Name = "TestStatusText";
+            TestStatusText.ReadOnly = true;
             TestStatusText.Size = new Size(168, 23);
             TestStatusText.TabIndex = 12;
             // 
@@ -173,6 +164,16 @@
             // 
             StepStatusColumn.Text = "Status";
             // 
+            // ScenarioPathLabel
+            // 
+            ScenarioPathLabel.AutoSize = true;
+            ScenarioPathLabel.Location = new Point(13, 15);
+            ScenarioPathLabel.Margin = new Padding(4, 0, 4, 0);
+            ScenarioPathLabel.Name = "ScenarioPathLabel";
+            ScenarioPathLabel.Size = new Size(109, 15);
+            ScenarioPathLabel.TabIndex = 14;
+            ScenarioPathLabel.Text = "Scenariusz testowy:";
+            // 
             // TestingTabControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -202,7 +203,6 @@
         private Button NextStepButton;
         private Button ScenarioPathButton;
         private TextBox ScenarioPathText;
-        private Label ScenarioPathLabel;
         private Button StartTestButton;
         private TextBox TestStatusText;
         private Label TestStatusLabel;
@@ -210,5 +210,6 @@
         private ColumnHeader StepCounterColumn;
         private ColumnHeader StepNameColumn;
         private ColumnHeader StepStatusColumn;
+        private Label ScenarioPathLabel;
     }
 }

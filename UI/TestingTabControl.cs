@@ -19,21 +19,23 @@ namespace WinFormsTestRunner
         public TestingTabControl()
         {
             InitializeComponent();
-
-            ButtonsStateHandler.ButtonStateChanged += OnButtonStateChanged;
-
+            InitializeButtonsState();
+            InitializeButtonEvents(); 
             Logger.Initialize(TestMessagesContainer);
 
-            StartTestButton.Enabled = ButtonsStateHandler.GetButtonState("StartTestButton");
-            StopTestButton.Enabled = ButtonsStateHandler.GetButtonState("StopTestButton");
-            EndTestButton.Enabled = ButtonsStateHandler.GetButtonState("EndTestButton");
-            NextStepButton.Enabled = ButtonsStateHandler.GetButtonState("NextStepButton");
-            RetryStepButton.Enabled = ButtonsStateHandler.GetButtonState("RetryStepButton");
-            ScenarioPathButton.Enabled = ButtonsStateHandler.GetButtonState("ScenarioPathButton");
+            UIStateHandler.TestStatusChanged += OnTestStatusChanged;
+            UIStateHandler.SetTestStatus("Oczekiwanie na wybór scenariusza");
         }
 
         private void OnButtonStateChanged(string buttonName, bool isEnabled)
         {
+            // Przypadek odwoływania się do kontrolki z innego wątku, niż ten w którym została stworzona
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => OnButtonStateChanged(buttonName, isEnabled)));
+                return;
+            }
+
             switch (buttonName)
             {
                 case "StartTestButton":
@@ -57,9 +59,14 @@ namespace WinFormsTestRunner
             }
         }
 
+        private void OnTestStatusChanged(string status)
+        {
+            TestStatusText.Text = status; 
+        }
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ButtonsStateHandler.ButtonStateChanged -= OnButtonStateChanged;
+            UIStateHandler.ButtonStateChanged -= OnButtonStateChanged;
         }
 
         private void ScenarioPathButton_Click(object sender, EventArgs e)
@@ -70,60 +77,72 @@ namespace WinFormsTestRunner
             TestRunner.CreateTestScenario(scenarioPath);
         }
 
-        private void StartTestButton_Click(object sender, EventArgs e)
+        private async void StartTestButton_Click(object sender, EventArgs e)
         {
-            ButtonsStateHandler.SetButtonState("StartTestButton", false);
-            ButtonsStateHandler.SetButtonState("StopTestButton", true);
-            ButtonsStateHandler.SetButtonState("EndTestButton", true);
-            ButtonsStateHandler.SetButtonState("NextStepButton", false);
-            ButtonsStateHandler.SetButtonState("RetryStepButton", false);
-            ButtonsStateHandler.SetButtonState("ScenarioPathButton", false);
+            UIStateHandler.SetButtonState("StartTestButton", false);
+            UIStateHandler.SetButtonState("StopTestButton", true);
+            UIStateHandler.SetButtonState("EndTestButton", true);
+            UIStateHandler.SetButtonState("NextStepButton", false);
+            UIStateHandler.SetButtonState("RetryStepButton", false);
+            UIStateHandler.SetButtonState("ScenarioPathButton", false);
 
-            // Logic
-            TestRunner.Run(); 
+            await TestRunner.RunAsync(); 
         }
 
         private void StopTestButton_Click(object sender, EventArgs e)
         {
-            ButtonsStateHandler.SetButtonState("StartTestButton", true);
-            ButtonsStateHandler.SetButtonState("StopTestButton", false);
-            ButtonsStateHandler.SetButtonState("EndTestButton", true);
-            ButtonsStateHandler.SetButtonState("NextStepButton", true);
-            ButtonsStateHandler.SetButtonState("RetryStepButton", true);
-
-            Logger.Log("Przycisk o nazwie Stop został pomyślnie kilknięty, i wszystkie inne akcje związane z tym eventem również zostały zakończone pomyślnie. ", true);
-
-            // Logic
+            UIStateHandler.SetButtonState("StartTestButton", true);
+            UIStateHandler.SetButtonState("StopTestButton", false);
+            UIStateHandler.SetButtonState("EndTestButton", true);
+            UIStateHandler.SetButtonState("NextStepButton", true);
+            UIStateHandler.SetButtonState("RetryStepButton", true);
         }
 
         private void EndTestButton_Click(object sender, EventArgs e)
         {
-            ButtonsStateHandler.SetButtonState("StartTestButton", true);
-            ButtonsStateHandler.SetButtonState("StopTestButton", false);
-            ButtonsStateHandler.SetButtonState("EndTestButton", false);
-            ButtonsStateHandler.SetButtonState("NextStepButton", false);
-            ButtonsStateHandler.SetButtonState("RetryStepButton", false);
-            ButtonsStateHandler.SetButtonState("ScenarioPathButton", true);
-
-            // Logic
+            UIStateHandler.SetButtonState("StartTestButton", true);
+            UIStateHandler.SetButtonState("StopTestButton", false);
+            UIStateHandler.SetButtonState("EndTestButton", false);
+            UIStateHandler.SetButtonState("NextStepButton", false);
+            UIStateHandler.SetButtonState("RetryStepButton", false);
+            UIStateHandler.SetButtonState("ScenarioPathButton", true);
         }
 
         private void RetryStepButton_Click(object sender, EventArgs e)
         {
-            ButtonsStateHandler.SetButtonState("StartTestButton", false);
-            ButtonsStateHandler.SetButtonState("StopTestButton", true);
-            ButtonsStateHandler.SetButtonState("EndTestButton", true);
-            ButtonsStateHandler.SetButtonState("NextStepButton", false);
-            ButtonsStateHandler.SetButtonState("RetryStepButton", false);
+            UIStateHandler.SetButtonState("StartTestButton", false);
+            UIStateHandler.SetButtonState("StopTestButton", true);
+            UIStateHandler.SetButtonState("EndTestButton", true);
+            UIStateHandler.SetButtonState("NextStepButton", false);
+            UIStateHandler.SetButtonState("RetryStepButton", false);
         }
 
         private void NextStepButton_Click(object sender, EventArgs e)
         {
-            ButtonsStateHandler.SetButtonState("StartTestButton", false);
-            ButtonsStateHandler.SetButtonState("StopTestButton", true);
-            ButtonsStateHandler.SetButtonState("EndTestButton", true);
-            ButtonsStateHandler.SetButtonState("NextStepButton", false);
-            ButtonsStateHandler.SetButtonState("RetryStepButton", false);
+            UIStateHandler.SetButtonState("StartTestButton", false);
+            UIStateHandler.SetButtonState("StopTestButton", true);
+            UIStateHandler.SetButtonState("EndTestButton", true);
+            UIStateHandler.SetButtonState("NextStepButton", false);
+            UIStateHandler.SetButtonState("RetryStepButton", false);
+        }
+
+        private void InitializeButtonsState()
+        {
+            StartTestButton.Enabled = UIStateHandler.GetButtonState("StartTestButton");
+            StopTestButton.Enabled = UIStateHandler.GetButtonState("StopTestButton");
+            EndTestButton.Enabled = UIStateHandler.GetButtonState("EndTestButton");
+            NextStepButton.Enabled = UIStateHandler.GetButtonState("NextStepButton");
+            RetryStepButton.Enabled = UIStateHandler.GetButtonState("RetryStepButton");
+            ScenarioPathButton.Enabled = UIStateHandler.GetButtonState("ScenarioPathButton");
+        }
+
+        private void InitializeButtonEvents()
+        {
+            UIStateHandler.ButtonStateChanged += OnButtonStateChanged;
+
+            NextStepButton.Click += (s, e) => TestRunner.TriggerUserAction("ContinueStep");
+            RetryStepButton.Click += (s, e) => TestRunner.TriggerUserAction("RetryStep");
+            StopTestButton.Click += (s, e) => TestRunner.TriggerUserAction("StopTest");
         }
     }
 
