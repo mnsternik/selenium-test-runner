@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            StopTestButton = new Button();
             EndTestButton = new Button();
             RetryStepButton = new Button();
             NextStepButton = new Button();
@@ -43,17 +42,6 @@
             StepStatusColumn = new ColumnHeader();
             ScenarioPathLabel = new Label();
             SuspendLayout();
-            // 
-            // StopTestButton
-            // 
-            StopTestButton.Location = new Point(103, 183);
-            StopTestButton.Margin = new Padding(4, 3, 4, 3);
-            StopTestButton.Name = "StopTestButton";
-            StopTestButton.Size = new Size(78, 26);
-            StopTestButton.TabIndex = 21;
-            StopTestButton.Text = "Zatrzymaj";
-            StopTestButton.UseVisualStyleBackColor = true;
-            StopTestButton.Click += StopTestButton_Click;
             // 
             // EndTestButton
             // 
@@ -112,7 +100,7 @@
             StartTestButton.Location = new Point(13, 183);
             StartTestButton.Margin = new Padding(4, 3, 4, 3);
             StartTestButton.Name = "StartTestButton";
-            StartTestButton.Size = new Size(87, 26);
+            StartTestButton.Size = new Size(168, 26);
             StartTestButton.TabIndex = 13;
             StartTestButton.Text = "Uruchom";
             StartTestButton.UseVisualStyleBackColor = true;
@@ -179,7 +167,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(TestMessagesContainer);
-            Controls.Add(StopTestButton);
             Controls.Add(EndTestButton);
             Controls.Add(RetryStepButton);
             Controls.Add(NextStepButton);
@@ -196,8 +183,6 @@
         }
 
         #endregion
-
-        private Button StopTestButton;
         private Button EndTestButton;
         private Button RetryStepButton;
         private Button NextStepButton;
