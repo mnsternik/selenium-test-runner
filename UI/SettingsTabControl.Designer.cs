@@ -40,9 +40,6 @@
             DriverPathButton = new Button();
             DriverPathText = new TextBox();
             DriverPathLabel = new Label();
-            ConfigPathButton = new Button();
-            ConfigPathText = new TextBox();
-            ConfigPathLabel = new Label();
             EditConfigButton = new Button();
             CancelEditConfigButton = new Button();
             ConfigContentLabel = new Label();
@@ -50,7 +47,7 @@
             // 
             // SaveConfigButton
             // 
-            SaveConfigButton.Location = new Point(194, 379);
+            SaveConfigButton.Location = new Point(204, 318);
             SaveConfigButton.Margin = new Padding(4, 3, 4, 3);
             SaveConfigButton.Name = "SaveConfigButton";
             SaveConfigButton.Size = new Size(116, 26);
@@ -61,7 +58,7 @@
             // 
             // WaitingTimeoutText
             // 
-            WaitingTimeoutText.Location = new Point(15, 341);
+            WaitingTimeoutText.Location = new Point(25, 280);
             WaitingTimeoutText.Margin = new Padding(4, 3, 4, 3);
             WaitingTimeoutText.Name = "WaitingTimeoutText";
             WaitingTimeoutText.Size = new Size(392, 23);
@@ -71,7 +68,7 @@
             // WaitingTimeoutLabel
             // 
             WaitingTimeoutLabel.AutoSize = true;
-            WaitingTimeoutLabel.Location = new Point(15, 320);
+            WaitingTimeoutLabel.Location = new Point(25, 259);
             WaitingTimeoutLabel.Margin = new Padding(4, 0, 4, 0);
             WaitingTimeoutLabel.Name = "WaitingTimeoutLabel";
             WaitingTimeoutLabel.Size = new Size(240, 15);
@@ -80,7 +77,7 @@
             // 
             // LogsPathButton
             // 
-            LogsPathButton.Location = new Point(412, 278);
+            LogsPathButton.Location = new Point(422, 217);
             LogsPathButton.Margin = new Padding(4, 3, 4, 3);
             LogsPathButton.Name = "LogsPathButton";
             LogsPathButton.Size = new Size(74, 26);
@@ -91,7 +88,7 @@
             // 
             // LogsPathText
             // 
-            LogsPathText.Location = new Point(15, 278);
+            LogsPathText.Location = new Point(25, 217);
             LogsPathText.Margin = new Padding(4, 3, 4, 3);
             LogsPathText.Name = "LogsPathText";
             LogsPathText.Size = new Size(392, 23);
@@ -100,7 +97,7 @@
             // LogsPathLabel
             // 
             LogsPathLabel.AutoSize = true;
-            LogsPathLabel.Location = new Point(15, 258);
+            LogsPathLabel.Location = new Point(25, 197);
             LogsPathLabel.Margin = new Padding(4, 0, 4, 0);
             LogsPathLabel.Name = "LogsPathLabel";
             LogsPathLabel.Size = new Size(162, 15);
@@ -109,7 +106,7 @@
             // 
             // BrowserPathButton
             // 
-            BrowserPathButton.Location = new Point(412, 216);
+            BrowserPathButton.Location = new Point(422, 155);
             BrowserPathButton.Margin = new Padding(4, 3, 4, 3);
             BrowserPathButton.Name = "BrowserPathButton";
             BrowserPathButton.Size = new Size(74, 26);
@@ -120,7 +117,7 @@
             // 
             // BrowserPathText
             // 
-            BrowserPathText.Location = new Point(15, 216);
+            BrowserPathText.Location = new Point(25, 155);
             BrowserPathText.Margin = new Padding(4, 3, 4, 3);
             BrowserPathText.Name = "BrowserPathText";
             BrowserPathText.Size = new Size(392, 23);
@@ -129,7 +126,7 @@
             // BrowserPathLabel
             // 
             BrowserPathLabel.AutoSize = true;
-            BrowserPathLabel.Location = new Point(15, 196);
+            BrowserPathLabel.Location = new Point(25, 135);
             BrowserPathLabel.Margin = new Padding(4, 0, 4, 0);
             BrowserPathLabel.Name = "BrowserPathLabel";
             BrowserPathLabel.Size = new Size(152, 15);
@@ -138,7 +135,7 @@
             // 
             // DriverPathButton
             // 
-            DriverPathButton.Location = new Point(412, 151);
+            DriverPathButton.Location = new Point(422, 90);
             DriverPathButton.Margin = new Padding(4, 3, 4, 3);
             DriverPathButton.Name = "DriverPathButton";
             DriverPathButton.Size = new Size(74, 26);
@@ -149,7 +146,7 @@
             // 
             // DriverPathText
             // 
-            DriverPathText.Location = new Point(15, 152);
+            DriverPathText.Location = new Point(25, 91);
             DriverPathText.Margin = new Padding(4, 3, 4, 3);
             DriverPathText.Name = "DriverPathText";
             DriverPathText.Size = new Size(392, 23);
@@ -158,65 +155,38 @@
             // DriverPathLabel
             // 
             DriverPathLabel.AutoSize = true;
-            DriverPathLabel.Location = new Point(15, 131);
+            DriverPathLabel.Location = new Point(25, 70);
             DriverPathLabel.Margin = new Padding(4, 0, 4, 0);
             DriverPathLabel.Name = "DriverPathLabel";
             DriverPathLabel.Size = new Size(180, 15);
             DriverPathLabel.TabIndex = 18;
             DriverPathLabel.Text = "Ścieżka do pliku geckodriver.exe:";
             // 
-            // ConfigPathButton
-            // 
-            ConfigPathButton.Location = new Point(412, 41);
-            ConfigPathButton.Margin = new Padding(4, 3, 4, 3);
-            ConfigPathButton.Name = "ConfigPathButton";
-            ConfigPathButton.Size = new Size(74, 26);
-            ConfigPathButton.TabIndex = 17;
-            ConfigPathButton.Text = "Wybierz";
-            ConfigPathButton.UseVisualStyleBackColor = true;
-            ConfigPathButton.Click += ConfigPathButton_Click;
-            // 
-            // ConfigPathText
-            // 
-            ConfigPathText.Location = new Point(15, 43);
-            ConfigPathText.Margin = new Padding(4, 3, 4, 3);
-            ConfigPathText.Name = "ConfigPathText";
-            ConfigPathText.Size = new Size(392, 23);
-            ConfigPathText.TabIndex = 16;
-            // 
-            // ConfigPathLabel
-            // 
-            ConfigPathLabel.AutoSize = true;
-            ConfigPathLabel.Location = new Point(15, 23);
-            ConfigPathLabel.Margin = new Padding(4, 0, 4, 0);
-            ConfigPathLabel.Name = "ConfigPathLabel";
-            ConfigPathLabel.Size = new Size(190, 15);
-            ConfigPathLabel.TabIndex = 15;
-            ConfigPathLabel.Text = "Ścieżka do pliku konfiguracyjnego:";
-            // 
             // EditConfigButton
             // 
-            EditConfigButton.Location = new Point(15, 379);
+            EditConfigButton.Location = new Point(25, 318);
             EditConfigButton.Name = "EditConfigButton";
             EditConfigButton.Size = new Size(75, 26);
             EditConfigButton.TabIndex = 30;
             EditConfigButton.Text = "Edytuj";
             EditConfigButton.UseVisualStyleBackColor = true;
+            EditConfigButton.Click += EditConfigButton_Click;
             // 
             // CancelEditConfigButton
             // 
-            CancelEditConfigButton.Location = new Point(96, 379);
+            CancelEditConfigButton.Location = new Point(106, 318);
             CancelEditConfigButton.Name = "CancelEditConfigButton";
             CancelEditConfigButton.Size = new Size(91, 26);
             CancelEditConfigButton.TabIndex = 31;
             CancelEditConfigButton.Text = "Anuluj";
             CancelEditConfigButton.UseVisualStyleBackColor = true;
+            CancelEditConfigButton.Click += CancelEditConfigButton_Click;
             // 
             // ConfigContentLabel
             // 
             ConfigContentLabel.AutoSize = true;
             ConfigContentLabel.Font = new Font("Segoe UI", 12F);
-            ConfigContentLabel.Location = new Point(15, 87);
+            ConfigContentLabel.Location = new Point(25, 26);
             ConfigContentLabel.Name = "ConfigContentLabel";
             ConfigContentLabel.Size = new Size(244, 21);
             ConfigContentLabel.TabIndex = 32;
@@ -241,9 +211,6 @@
             Controls.Add(DriverPathButton);
             Controls.Add(DriverPathText);
             Controls.Add(DriverPathLabel);
-            Controls.Add(ConfigPathButton);
-            Controls.Add(ConfigPathText);
-            Controls.Add(ConfigPathLabel);
             Name = "SettingsTabControl";
             Size = new Size(792, 476);
             ResumeLayout(false);
@@ -264,9 +231,6 @@
         private Button DriverPathButton;
         private TextBox DriverPathText;
         private Label DriverPathLabel;
-        private Button ConfigPathButton;
-        private TextBox ConfigPathText;
-        private Label ConfigPathLabel;
         private Button EditConfigButton;
         private Button CancelEditConfigButton;
         private Label ConfigContentLabel;
