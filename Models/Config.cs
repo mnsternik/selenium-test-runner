@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WinFormsTestRunner.Models
 {
-    internal class Config
+    internal class Config : ICloneable
     {
         public string DriverPath { get; set; }
         public string FirefoxPath { get; set; }
@@ -35,6 +35,17 @@ namespace WinFormsTestRunner.Models
             FirefoxPath = string.Empty;
             LogsFolderPath = string.Empty;
             ElementWaitingTimeout = 1;
+        }
+
+        public object Clone()
+        {
+            return new Config
+            {
+                DriverPath = this.DriverPath,
+                FirefoxPath = this.FirefoxPath,
+                LogsFolderPath = this.LogsFolderPath,
+                ElementWaitingTimeout = this.ElementWaitingTimeout
+            };
         }
     }
 }
