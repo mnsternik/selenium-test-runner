@@ -25,7 +25,7 @@ namespace WinFormsTestRunner.Configuration
 
         private static readonly string ConfigFileName = "config.json";
         //private static readonly string ConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", ConfigFileName);
-        private static readonly string ConfigFilePath = Path.Combine("C:\\Users\\mnste\\OneDrive\\Pulpit\\TestRunnerData", "Configuration", ConfigFileName);
+        private static readonly string ConfigFilePath = Path.Combine("C:\\Users\\mnste\\OneDrive\\Pulpit\\TestRunnerData\\Configuration", ConfigFileName);
 
         public static void LoadConfig()
         {
