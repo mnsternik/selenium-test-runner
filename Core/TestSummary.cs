@@ -29,8 +29,8 @@ namespace WinFormsTestRunner.Core
         public static  void DisplaySummary()
         {
             string message = HasErrors()
-                ? $"Test zakończył się z liczbą błędów: {_errorCount}"
-                : "Test zakończył się bez błędów";
+                ? $"KONIEC: Test zakończył się z liczbą błędów: {_errorCount}"
+                : "KONIEC: Test zakończył się bez błędów";
 
             Logger.Log(message); 
         }
