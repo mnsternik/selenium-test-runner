@@ -31,8 +31,8 @@
             settingsTab = new TabPage();
             settingsTabControl1 = new SettingsTabControl();
             tab = new TabControl();
-            testingTabControl = new TestingTabControl();
             testingTab = new TabPage();
+            testingTabControl = new TestingTabControl();
             settingsTab.SuspendLayout();
             tab.SuspendLayout();
             testingTab.SuspendLayout();
@@ -46,7 +46,7 @@
             settingsTab.Margin = new Padding(4, 3, 4, 3);
             settingsTab.Name = "settingsTab";
             settingsTab.Padding = new Padding(4, 3, 4, 3);
-            settingsTab.Size = new Size(793, 483);
+            settingsTab.Size = new Size(896, 483);
             settingsTab.TabIndex = 1;
             settingsTab.Text = "Ustawienia";
             // 
@@ -65,17 +65,8 @@
             tab.Margin = new Padding(4, 3, 4, 3);
             tab.Name = "tab";
             tab.SelectedIndex = 0;
-            tab.Size = new Size(801, 511);
+            tab.Size = new Size(904, 511);
             tab.TabIndex = 0;
-            // 
-            // testingTabControl
-            // 
-            testingTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            testingTabControl.AutoSize = true;
-            testingTabControl.Location = new Point(4, 3);
-            testingTabControl.Name = "testingTabControl";
-            testingTabControl.Size = new Size(787, 477);
-            testingTabControl.TabIndex = 0;
             // 
             // testingTab
             // 
@@ -85,15 +76,24 @@
             testingTab.Margin = new Padding(4, 3, 4, 3);
             testingTab.Name = "testingTab";
             testingTab.Padding = new Padding(4, 3, 4, 3);
-            testingTab.Size = new Size(793, 483);
+            testingTab.Size = new Size(896, 483);
             testingTab.TabIndex = 0;
             testingTab.Text = "Testowanie";
+            // 
+            // testingTabControl
+            // 
+            testingTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            testingTabControl.AutoSize = true;
+            testingTabControl.Location = new Point(0, 0);
+            testingTabControl.Name = "testingTabControl";
+            testingTabControl.Size = new Size(845, 477);
+            testingTabControl.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(797, 507);
+            ClientSize = new Size(846, 507);
             Controls.Add(tab);
             Font = new Font("Segoe UI", 9F);
             Margin = new Padding(4, 3, 4, 3);

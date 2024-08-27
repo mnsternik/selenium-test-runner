@@ -212,7 +212,7 @@
             Controls.Add(DriverPathText);
             Controls.Add(DriverPathLabel);
             Name = "SettingsTabControl";
-            Size = new Size(792, 476);
+            Size = new Size(845, 476);
             ResumeLayout(false);
             PerformLayout();
         }

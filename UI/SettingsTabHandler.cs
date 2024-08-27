@@ -15,30 +15,6 @@ namespace WinFormsTestRunner.UI
         public static event Action<string, bool>? ButtonStateChanged;
         public static event Action<string, bool>? TextboxStateChanged; 
 
-        static SettingsTabHandler()
-        {
-            InitializeButtonStates();
-            InitializeTextboxStates();
-        }
-
-        private static void InitializeButtonStates()
-        {
-            ButtonEnabledStates["DriverPathButton"] = false;
-            ButtonEnabledStates["FirefoxPathButton"] = false;
-            ButtonEnabledStates["LogsPathButton"] = false;
-            ButtonEnabledStates["EditConfigButton"] = true;
-            ButtonEnabledStates["CancelEditConfigButton"] = false;
-            ButtonEnabledStates["SaveConfigButton"] = false;
-        }
-
-        private static void InitializeTextboxStates()
-        {
-            TextboxReadonlyStates["DriverPathText"] = true;
-            TextboxReadonlyStates["BrowserPathText"] = true;
-            TextboxReadonlyStates["LogsPathText"] = true;
-            TextboxReadonlyStates["WaitingTimeoutText"] = true;
-        }
-
         public static void SetButtonState(string buttonName, bool isEnabled)
         {
             if (!ButtonEnabledStates.TryAdd(buttonName, isEnabled))
@@ -67,6 +43,36 @@ namespace WinFormsTestRunner.UI
         public static bool GetTextboxState(string textboxName)
         {
             return TextboxReadonlyStates.TryGetValue(textboxName, out var isReadonly) && isReadonly;
+        }
+
+        public static void SetEditMode()
+        {
+            SettingsTabHandler.SetButtonState("DriverPathButton", true);
+            SettingsTabHandler.SetButtonState("BrowserPathButton", true);
+            SettingsTabHandler.SetButtonState("LogsPathButton", true);
+            SettingsTabHandler.SetButtonState("EditConfigButton", false);
+            SettingsTabHandler.SetButtonState("CancelEditConfigButton", true);
+            SettingsTabHandler.SetButtonState("SaveConfigButton", true);
+
+            SettingsTabHandler.SetTextboxState("DriverPathText", false);
+            SettingsTabHandler.SetTextboxState("BrowserPathText", false);
+            SettingsTabHandler.SetTextboxState("LogsPathText", false);
+            SettingsTabHandler.SetTextboxState("WaitingTimeoutText", false);
+        }
+
+        public static void SetViewMode()
+        {
+            SettingsTabHandler.SetButtonState("DriverPathButton", false);
+            SettingsTabHandler.SetButtonState("BrowserPathButton", false);
+            SettingsTabHandler.SetButtonState("LogsPathButton", false);
+            SettingsTabHandler.SetButtonState("EditConfigButton", true);
+            SettingsTabHandler.SetButtonState("CancelEditConfigButton", false);
+            SettingsTabHandler.SetButtonState("SaveConfigButton", false);
+
+            SettingsTabHandler.SetTextboxState("DriverPathText", true);
+            SettingsTabHandler.SetTextboxState("BrowserPathText", true);
+            SettingsTabHandler.SetTextboxState("LogsPathText", true);
+            SettingsTabHandler.SetTextboxState("WaitingTimeoutText", true);
         }
     }
 }

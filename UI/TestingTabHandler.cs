@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinFormsTestRunner.Core;
 
 namespace WinFormsTestRunner.UI
 {
@@ -13,21 +14,6 @@ namespace WinFormsTestRunner.UI
 
         public static event Action<string, bool>? ButtonStateChanged;
         public static event Action<string>? TestStatusChanged; 
-
-        static TestingTabHandler()
-        {
-            InitializeButtonStates();
-        }
-        // Ustawienie początkowego stanu aktywności przycisków
-        private static void InitializeButtonStates()
-        {
-            // Testing tab control
-            ButtonStates["StartTestButton"] = true;
-            ButtonStates["EndTestButton"] = false;
-            ButtonStates["NextStepButton"] = false;
-            ButtonStates["RetryStepButton"] = false;
-            ButtonStates["ScenarioPathButton"] = true;
-        }
 
         public static void SetButtonState(string buttonName, bool isEnabled)
         {
@@ -47,6 +33,24 @@ namespace WinFormsTestRunner.UI
         public static void SetTestStatus(string status)
         {
             TestStatusChanged?.Invoke(status); 
+        }
+
+        public static void SetTestStartedMode()
+        {
+            TestingTabHandler.SetButtonState("StartTestButton", false);
+            TestingTabHandler.SetButtonState("EndTestButton", true);
+            TestingTabHandler.SetButtonState("NextStepButton", false);
+            TestingTabHandler.SetButtonState("RetryStepButton", false);
+            TestingTabHandler.SetButtonState("ScenarioPathButton", false);
+        }
+
+        public static void SetTestNotStartedMode()
+        {
+            TestingTabHandler.SetButtonState("StartTestButton", true);
+            TestingTabHandler.SetButtonState("EndTestButton", false);
+            TestingTabHandler.SetButtonState("NextStepButton", false);
+            TestingTabHandler.SetButtonState("RetryStepButton", false);
+            TestingTabHandler.SetButtonState("ScenarioPathButton", true);
         }
     }
 }

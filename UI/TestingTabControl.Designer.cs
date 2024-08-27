@@ -45,7 +45,7 @@
             // 
             // EndTestButton
             // 
-            EndTestButton.Location = new Point(583, 442);
+            EndTestButton.Location = new Point(641, 442);
             EndTestButton.Margin = new Padding(4, 3, 4, 3);
             EndTestButton.Name = "EndTestButton";
             EndTestButton.Size = new Size(190, 26);
@@ -56,7 +56,7 @@
             // 
             // RetryStepButton
             // 
-            RetryStepButton.Location = new Point(191, 442);
+            RetryStepButton.Location = new Point(249, 442);
             RetryStepButton.Margin = new Padding(4, 3, 4, 3);
             RetryStepButton.Name = "RetryStepButton";
             RetryStepButton.Size = new Size(175, 26);
@@ -67,7 +67,7 @@
             // 
             // NextStepButton
             // 
-            NextStepButton.Location = new Point(374, 442);
+            NextStepButton.Location = new Point(432, 442);
             NextStepButton.Margin = new Padding(4, 3, 4, 3);
             NextStepButton.Name = "NextStepButton";
             NextStepButton.Size = new Size(201, 26);
@@ -92,7 +92,7 @@
             ScenarioPathText.Location = new Point(13, 39);
             ScenarioPathText.Margin = new Padding(4, 3, 4, 3);
             ScenarioPathText.Name = "ScenarioPathText";
-            ScenarioPathText.Size = new Size(168, 23);
+            ScenarioPathText.Size = new Size(229, 23);
             ScenarioPathText.TabIndex = 15;
             // 
             // StartTestButton
@@ -100,7 +100,7 @@
             StartTestButton.Location = new Point(13, 183);
             StartTestButton.Margin = new Padding(4, 3, 4, 3);
             StartTestButton.Name = "StartTestButton";
-            StartTestButton.Size = new Size(168, 26);
+            StartTestButton.Size = new Size(109, 26);
             StartTestButton.TabIndex = 13;
             StartTestButton.Text = "Uruchom";
             StartTestButton.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@
             TestStatusText.Margin = new Padding(4, 3, 4, 3);
             TestStatusText.Name = "TestStatusText";
             TestStatusText.ReadOnly = true;
-            TestStatusText.Size = new Size(168, 23);
+            TestStatusText.Size = new Size(229, 23);
             TestStatusText.TabIndex = 12;
             // 
             // TestStatusLabel
@@ -132,7 +132,7 @@
             TestMessagesContainer.Columns.AddRange(new ColumnHeader[] { StepCounterColumn, StepNameColumn, StepStatusColumn });
             TestMessagesContainer.FullRowSelect = true;
             TestMessagesContainer.LabelWrap = false;
-            TestMessagesContainer.Location = new Point(191, 15);
+            TestMessagesContainer.Location = new Point(249, 15);
             TestMessagesContainer.Name = "TestMessagesContainer";
             TestMessagesContainer.Size = new Size(582, 421);
             TestMessagesContainer.TabIndex = 22;
@@ -177,7 +177,8 @@
             Controls.Add(TestStatusText);
             Controls.Add(TestStatusLabel);
             Name = "TestingTabControl";
-            Size = new Size(787, 476);
+            Size = new Size(845, 476);
+            Load += TestingTabControl_Load;
             ResumeLayout(false);
             PerformLayout();
         }
