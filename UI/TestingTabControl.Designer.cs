@@ -81,7 +81,7 @@
             ScenarioPathButton.Location = new Point(13, 72);
             ScenarioPathButton.Margin = new Padding(4, 3, 4, 3);
             ScenarioPathButton.Name = "ScenarioPathButton";
-            ScenarioPathButton.Size = new Size(171, 26);
+            ScenarioPathButton.Size = new Size(120, 26);
             ScenarioPathButton.TabIndex = 16;
             ScenarioPathButton.Text = "Wybierz scenariusz";
             ScenarioPathButton.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             StartTestButton.Location = new Point(13, 183);
             StartTestButton.Margin = new Padding(4, 3, 4, 3);
             StartTestButton.Name = "StartTestButton";
-            StartTestButton.Size = new Size(109, 26);
+            StartTestButton.Size = new Size(77, 26);
             StartTestButton.TabIndex = 13;
             StartTestButton.Text = "Uruchom";
             StartTestButton.UseVisualStyleBackColor = true;

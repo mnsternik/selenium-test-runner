@@ -16,6 +16,8 @@ namespace WinFormsTestRunner
 {
     public partial class TestingTabControl : UserControl
     {
+        //private string _scenarioPath = string.Empty; 
+
         public TestingTabControl()
         {
             InitializeComponent();
@@ -78,12 +80,14 @@ namespace WinFormsTestRunner
         {
             var scenarioPath = DialogFileHandler.GetFilePath("JSON files (*.json)|*.json|All files (*.*)|*.*");
             ScenarioPathText.Text = scenarioPath;
+            //_scenarioPath = scenarioPath; 
             TestRunner.CreateTestScenario(scenarioPath);
         }
 
         private async void StartTestButton_Click(object sender, EventArgs e)
         {
             TestingTabHandler.SetTestStartedMode();
+            //await TestRunner.RunAsync(_scenarioPath);
             await TestRunner.RunAsync();
         }
 
