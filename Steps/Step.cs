@@ -36,6 +36,11 @@ namespace WinFormsTestRunner.Steps
                 Logger.Log(ex.Message, false);
                 HandleFailure(stepCounter, ex.Message);
             }
+            catch (OpenQA.Selenium.ElementNotInteractableException ex)
+            {
+                Logger.Log($"Nie można wykonać kroku {Name}. Na stronie mógł pojawić się nieoczekiwany element. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
+                HandleFailure(stepCounter, ex.Message);
+            }
         }
 
         public virtual void HandleAction()
