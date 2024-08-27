@@ -29,14 +29,24 @@ namespace WinFormsTestRunner.Core
             TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
 
             InitDriver();
+
             foreach (var step in _steps)
             {
-                await Task.Run(() => step.ExecuteAndLog(_stepCounter));
-                _stepCounter++;
+                try
+                {
+                    await Task.Run(() => step.ExecuteAndLog(_stepCounter));
+                    _stepCounter++;
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log($"Wystąpił nieoczekiwany błąd: {ex.Message}"); 
+                }
             }
 
+            TestingTabHandler.SetTestNotStartedMode();
             TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
             TestSummary.DisplaySummary();
+            TestSummary.Reset();
             Driver?.Dispose();
         }
 
