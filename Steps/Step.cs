@@ -22,7 +22,7 @@ namespace WinFormsTestRunner.Steps
         public string? BackupScenarioPath { get; set; } = backupScenarioPath;
 
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
-        private static string _userAction;
+        private static string? _userAction;
 
         public void ExecuteAndLog(int stepCounter)
         {
@@ -45,25 +45,27 @@ namespace WinFormsTestRunner.Steps
 
         public void HandleFailure(int stepCounter, string message)
         {
-            UIStateHandler.SetButtonState("RetryStepButton", true);
-            UIStateHandler.SetButtonState("NextStepButton", true);
-            UIStateHandler.SetButtonState("StopTestButton", true);
+            TestingTabHandler.SetButtonState("RetryStepButton", true);
+            TestingTabHandler.SetButtonState("NextStepButton", true);
+            TestingTabHandler.SetButtonState("EndTestButton", true);
+            TestingTabHandler.SetTestStatus("Oczekiwanie na akcje użytkownika");
 
-            _waitHandle.Reset(); 
-            TestRunner.UserActionOccurred += OnUserActionOccurred; 
-
+            _waitHandle.Reset();
+            TestRunner.UserActionOccurred += OnUserActionOccurred;
             _waitHandle.WaitOne(); // Czekanie na wywołanie eventu UserActionOccurred
-            TestRunner.UserActionOccurred -= OnUserActionOccurred; 
+            TestRunner.UserActionOccurred -= OnUserActionOccurred;
 
             switch (_userAction)
             {
-                case "ContinueStep":
+                case "NextStep":
+                    TestSummary.RecordError(); 
                     break;
                 case "RetryStep":
                     ExecuteAndLog(stepCounter);
                     break;
-                case "StopTest":
-                    throw new TestRunnerException("Wykonywanie scenariusza testowego zostało zatrzymane przez użytkownika.");
+                case "EndTest":
+                    TestRunner.EndTest();
+                    break;
             }
         }
 
