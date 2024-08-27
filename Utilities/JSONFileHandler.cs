@@ -27,10 +27,6 @@ namespace WinFormsTestRunner.Utilities
             {
                 throw new ArgumentNullException(nameof(obj), $"Wystąpił błąd podczas zapisywania pliku JSON - serializowany obiekt jest pusty");
             }
-            //if (!File.Exists(filePath))
-            //{
-            //    File.Create(filePath); 
-            //}
             try
             {
                 string jsonContent = JsonConvert.SerializeObject(obj, Formatting.Indented);
