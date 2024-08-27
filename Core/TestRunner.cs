@@ -15,8 +15,9 @@ namespace WinFormsTestRunner.Core
 {
     internal class TestRunner
     {
-        private static List<Step> Steps { get; set; } = new List<Step>();
+        private static List<Step> _steps = new List<Step>();
         private static int _stepCounter = 0;
+        private static string _scenarioName = string.Empty; 
 
         public static FirefoxDriver? Driver { get; set; }
 
@@ -24,31 +25,36 @@ namespace WinFormsTestRunner.Core
 
         public async static Task RunAsync() 
         {
+            Logger.Log($"Uruchamianie scenariusza testowego: {_scenarioName}", true);
+            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+
             InitDriver();
-
-            UIStateHandler.SetTestStatus("Trwa wykonywanie scenariusza");
-            Logger.Log($"Uruchamianie scenariusza testowego: [nazwa]", true);
-
-            foreach (var step in Steps)
+            foreach (var step in _steps)
             {
                 await Task.Run(() => step.ExecuteAndLog(_stepCounter));
                 _stepCounter++;
             }
+
+            TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
+            TestSummary.DisplaySummary();
+            Driver?.Dispose();
         }
 
         public static void EndTest()
         {
+            TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
             throw new TestRunnerException("Test został zakończony");
         }
 
         public static void CreateTestScenario(string scenarioPath)
         {
-            TestScenario ts = TestScenario.LoadScenario(scenarioPath); 
+            TestScenario ts = TestScenario.LoadScenario(scenarioPath);
+            _scenarioName = ts.Name; 
 
-            Steps.Clear();
-            Steps = CreateListOfSteps(ts);
+            _steps.Clear();
+            _steps = CreateListOfSteps(ts);
 
-            UIStateHandler.SetTestStatus("Gotowy do uruchomienia");
+            TestingTabHandler.SetTestStatus("Gotowy do uruchomienia");
         }
 
         public static List<Step> CreateListOfSteps(TestScenario ts)
