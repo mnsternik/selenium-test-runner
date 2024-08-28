@@ -25,4 +25,12 @@ namespace WinFormsTestRunner.Exceptions
         public FailedStepException(string message) : base(Prefix + message) { }
         public FailedStepException(string message, Exception innerException) : base(Prefix + message, innerException) { }
     }
+
+    internal class UserCancelException : TestRunnerException
+    {
+        private const string Prefix = "Anulowano dalsze wykonywanie testu. ";
+        public UserCancelException() : base(Prefix) { }
+        public UserCancelException(string message) : base(Prefix + message) { }
+        public UserCancelException(string message, Exception innerException) : base(Prefix + message, innerException) { }
+    }
 }
