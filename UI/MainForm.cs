@@ -6,13 +6,8 @@ namespace WinFormsTestRunner
     {
         public MainForm()
         {
+            ConfigManager.LoadConfig();
             InitializeComponent();
-            this.Load += MainForm_Load;
-        }
-
-        private void MainForm_Load(object? sender, EventArgs e)
-        {
-            ConfigManager.LoadConfig(); 
         }
     }
 }
