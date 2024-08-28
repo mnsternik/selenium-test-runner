@@ -49,14 +49,12 @@ namespace WinFormsTestRunner.UI
         {
             SettingsTabHandler.SetButtonState("DriverPathButton", true);
             SettingsTabHandler.SetButtonState("BrowserPathButton", true);
-            SettingsTabHandler.SetButtonState("LogsPathButton", true);
             SettingsTabHandler.SetButtonState("EditConfigButton", false);
             SettingsTabHandler.SetButtonState("CancelEditConfigButton", true);
             SettingsTabHandler.SetButtonState("SaveConfigButton", true);
 
             SettingsTabHandler.SetTextboxState("DriverPathText", false);
             SettingsTabHandler.SetTextboxState("BrowserPathText", false);
-            SettingsTabHandler.SetTextboxState("LogsPathText", false);
             SettingsTabHandler.SetTextboxState("WaitingTimeoutText", false);
         }
 
@@ -64,14 +62,12 @@ namespace WinFormsTestRunner.UI
         {
             SettingsTabHandler.SetButtonState("DriverPathButton", false);
             SettingsTabHandler.SetButtonState("BrowserPathButton", false);
-            SettingsTabHandler.SetButtonState("LogsPathButton", false);
             SettingsTabHandler.SetButtonState("EditConfigButton", true);
             SettingsTabHandler.SetButtonState("CancelEditConfigButton", false);
             SettingsTabHandler.SetButtonState("SaveConfigButton", false);
 
             SettingsTabHandler.SetTextboxState("DriverPathText", true);
             SettingsTabHandler.SetTextboxState("BrowserPathText", true);
-            SettingsTabHandler.SetTextboxState("LogsPathText", true);
             SettingsTabHandler.SetTextboxState("WaitingTimeoutText", true);
         }
     }

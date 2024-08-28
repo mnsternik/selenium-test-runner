@@ -31,9 +31,6 @@
             SaveConfigButton = new Button();
             WaitingTimeoutText = new TextBox();
             WaitingTimeoutLabel = new Label();
-            LogsPathButton = new Button();
-            LogsPathText = new TextBox();
-            LogsPathLabel = new Label();
             BrowserPathButton = new Button();
             BrowserPathText = new TextBox();
             BrowserPathLabel = new Label();
@@ -47,7 +44,7 @@
             // 
             // SaveConfigButton
             // 
-            SaveConfigButton.Location = new Point(204, 318);
+            SaveConfigButton.Location = new Point(204, 260);
             SaveConfigButton.Margin = new Padding(4, 3, 4, 3);
             SaveConfigButton.Name = "SaveConfigButton";
             SaveConfigButton.Size = new Size(116, 26);
@@ -58,7 +55,7 @@
             // 
             // WaitingTimeoutText
             // 
-            WaitingTimeoutText.Location = new Point(25, 280);
+            WaitingTimeoutText.Location = new Point(25, 222);
             WaitingTimeoutText.Margin = new Padding(4, 3, 4, 3);
             WaitingTimeoutText.Name = "WaitingTimeoutText";
             WaitingTimeoutText.Size = new Size(392, 23);
@@ -68,41 +65,12 @@
             // WaitingTimeoutLabel
             // 
             WaitingTimeoutLabel.AutoSize = true;
-            WaitingTimeoutLabel.Location = new Point(25, 259);
+            WaitingTimeoutLabel.Location = new Point(25, 201);
             WaitingTimeoutLabel.Margin = new Padding(4, 0, 4, 0);
             WaitingTimeoutLabel.Name = "WaitingTimeoutLabel";
             WaitingTimeoutLabel.Size = new Size(240, 15);
             WaitingTimeoutLabel.TabIndex = 27;
             WaitingTimeoutLabel.Text = "Czas oczekiwania na elementy na stronie (s):";
-            // 
-            // LogsPathButton
-            // 
-            LogsPathButton.Location = new Point(422, 217);
-            LogsPathButton.Margin = new Padding(4, 3, 4, 3);
-            LogsPathButton.Name = "LogsPathButton";
-            LogsPathButton.Size = new Size(74, 26);
-            LogsPathButton.TabIndex = 26;
-            LogsPathButton.Text = "Wybierz";
-            LogsPathButton.UseVisualStyleBackColor = true;
-            LogsPathButton.Click += LogsPathButton_Click;
-            // 
-            // LogsPathText
-            // 
-            LogsPathText.Location = new Point(25, 217);
-            LogsPathText.Margin = new Padding(4, 3, 4, 3);
-            LogsPathText.Name = "LogsPathText";
-            LogsPathText.Size = new Size(392, 23);
-            LogsPathText.TabIndex = 25;
-            // 
-            // LogsPathLabel
-            // 
-            LogsPathLabel.AutoSize = true;
-            LogsPathLabel.Location = new Point(25, 197);
-            LogsPathLabel.Margin = new Padding(4, 0, 4, 0);
-            LogsPathLabel.Name = "LogsPathLabel";
-            LogsPathLabel.Size = new Size(162, 15);
-            LogsPathLabel.TabIndex = 24;
-            LogsPathLabel.Text = "Ścieżka do katalogu z logami:";
             // 
             // BrowserPathButton
             // 
@@ -164,7 +132,7 @@
             // 
             // EditConfigButton
             // 
-            EditConfigButton.Location = new Point(25, 318);
+            EditConfigButton.Location = new Point(25, 260);
             EditConfigButton.Name = "EditConfigButton";
             EditConfigButton.Size = new Size(75, 26);
             EditConfigButton.TabIndex = 30;
@@ -174,7 +142,7 @@
             // 
             // CancelEditConfigButton
             // 
-            CancelEditConfigButton.Location = new Point(106, 318);
+            CancelEditConfigButton.Location = new Point(106, 260);
             CancelEditConfigButton.Name = "CancelEditConfigButton";
             CancelEditConfigButton.Size = new Size(91, 26);
             CancelEditConfigButton.TabIndex = 31;
@@ -202,9 +170,6 @@
             Controls.Add(SaveConfigButton);
             Controls.Add(WaitingTimeoutText);
             Controls.Add(WaitingTimeoutLabel);
-            Controls.Add(LogsPathButton);
-            Controls.Add(LogsPathText);
-            Controls.Add(LogsPathLabel);
             Controls.Add(BrowserPathButton);
             Controls.Add(BrowserPathText);
             Controls.Add(BrowserPathLabel);
@@ -222,9 +187,6 @@
         private Button SaveConfigButton;
         private TextBox WaitingTimeoutText;
         private Label WaitingTimeoutLabel;
-        private Button LogsPathButton;
-        private TextBox LogsPathText;
-        private Label LogsPathLabel;
         private Button BrowserPathButton;
         private TextBox BrowserPathText;
         private Label BrowserPathLabel;

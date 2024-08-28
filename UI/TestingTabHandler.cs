@@ -38,7 +38,7 @@ namespace WinFormsTestRunner.UI
         public static void SetTestStartedMode()
         {
             TestingTabHandler.SetButtonState("StartTestButton", false);
-            TestingTabHandler.SetButtonState("EndTestButton", true);
+            TestingTabHandler.SetButtonState("EndTestButton", false);
             TestingTabHandler.SetButtonState("NextStepButton", false);
             TestingTabHandler.SetButtonState("RetryStepButton", false);
             TestingTabHandler.SetButtonState("ScenarioPathButton", false);

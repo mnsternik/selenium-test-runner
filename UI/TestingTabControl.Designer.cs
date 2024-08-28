@@ -56,7 +56,7 @@
             // 
             // RetryStepButton
             // 
-            RetryStepButton.Location = new Point(249, 442);
+            RetryStepButton.Location = new Point(232, 442);
             RetryStepButton.Margin = new Padding(4, 3, 4, 3);
             RetryStepButton.Name = "RetryStepButton";
             RetryStepButton.Size = new Size(175, 26);
@@ -67,10 +67,10 @@
             // 
             // NextStepButton
             // 
-            NextStepButton.Location = new Point(432, 442);
+            NextStepButton.Location = new Point(415, 442);
             NextStepButton.Margin = new Padding(4, 3, 4, 3);
             NextStepButton.Name = "NextStepButton";
-            NextStepButton.Size = new Size(201, 26);
+            NextStepButton.Size = new Size(218, 26);
             NextStepButton.TabIndex = 18;
             NextStepButton.Text = "Przejdź do kolejnego kroku";
             NextStepButton.UseVisualStyleBackColor = true;
@@ -92,7 +92,7 @@
             ScenarioPathText.Location = new Point(13, 39);
             ScenarioPathText.Margin = new Padding(4, 3, 4, 3);
             ScenarioPathText.Name = "ScenarioPathText";
-            ScenarioPathText.Size = new Size(229, 23);
+            ScenarioPathText.Size = new Size(199, 23);
             ScenarioPathText.TabIndex = 15;
             // 
             // StartTestButton
@@ -112,7 +112,7 @@
             TestStatusText.Margin = new Padding(4, 3, 4, 3);
             TestStatusText.Name = "TestStatusText";
             TestStatusText.ReadOnly = true;
-            TestStatusText.Size = new Size(229, 23);
+            TestStatusText.Size = new Size(199, 23);
             TestStatusText.TabIndex = 12;
             // 
             // TestStatusLabel
@@ -132,21 +132,21 @@
             TestMessagesContainer.Columns.AddRange(new ColumnHeader[] { StepCounterColumn, StepNameColumn, StepStatusColumn });
             TestMessagesContainer.FullRowSelect = true;
             TestMessagesContainer.LabelWrap = false;
-            TestMessagesContainer.Location = new Point(249, 15);
+            TestMessagesContainer.Location = new Point(232, 15);
             TestMessagesContainer.Name = "TestMessagesContainer";
-            TestMessagesContainer.Size = new Size(582, 421);
+            TestMessagesContainer.Size = new Size(599, 421);
             TestMessagesContainer.TabIndex = 22;
             TestMessagesContainer.UseCompatibleStateImageBehavior = false;
             TestMessagesContainer.View = View.Details;
             // 
             // StepCounterColumn
             // 
-            StepCounterColumn.Text = "Krok";
+            StepCounterColumn.Text = "Czas";
             // 
             // StepNameColumn
             // 
             StepNameColumn.Text = "Nazwa kroku";
-            StepNameColumn.Width = 458;
+            StepNameColumn.Width = 475;
             // 
             // StepStatusColumn
             // 

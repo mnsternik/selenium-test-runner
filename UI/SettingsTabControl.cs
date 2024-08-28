@@ -39,7 +39,6 @@ namespace WinFormsTestRunner
 
             DriverPathText.Text = _config.DriverPath;
             BrowserPathText.Text = _config.FirefoxPath;
-            LogsPathText.Text = _config.LogsFolderPath;
             WaitingTimeoutText.Text = _config.ElementWaitingTimeout.ToString();
         }
 
@@ -59,9 +58,6 @@ namespace WinFormsTestRunner
                     break;
                 case "BrowserPathButton":
                     BrowserPathButton.Enabled = isEnabled;
-                    break;
-                case "LogsPathButton":
-                    LogsPathButton.Enabled = isEnabled;
                     break;
                 case "EditConfigButton":
                     EditConfigButton.Enabled = isEnabled;
@@ -92,9 +88,6 @@ namespace WinFormsTestRunner
                 case "BrowserPathText":
                     BrowserPathText.ReadOnly = isReadonly;
                     break;
-                case "LogsPathText":
-                    LogsPathText.ReadOnly = isReadonly;
-                    break;
                 case "WaitingTimeoutText":
                     WaitingTimeoutText.ReadOnly = isReadonly;
                     break;
@@ -115,13 +108,6 @@ namespace WinFormsTestRunner
             _config.FirefoxPath = browserPath;
         }
 
-        private void LogsPathButton_Click(object sender, EventArgs e)
-        {
-            var logsPath = DialogFileHandler.GetFolderPath();
-            LogsPathText.Text = logsPath;
-            _config.LogsFolderPath = logsPath;
-        }
-
         private void WaitingTimeoutText_TextChanged(object sender, EventArgs e)
         {
             _config.ElementWaitingTimeout = int.Parse(WaitingTimeoutText.Text);
@@ -129,8 +115,8 @@ namespace WinFormsTestRunner
 
         private void SaveConfigButton_Click(object sender, EventArgs e)
         {
-            ConfigManager.Config = (Config)_config.Clone();
-            ConfigManager.SaveConfig();
+            //ConfigManager.Config = (Config)_config.Clone();
+            ConfigManager.SaveConfig(_config);
             SettingsTabHandler.SetViewMode();
         }
 

@@ -11,12 +11,12 @@ using WinFormsTestRunner.Utilities;
 using WinFormsTestRunner.UI;
 using System.Windows.Forms.VisualStyles;
 using WinFormsTestRunner.Core;
+using WinFormsTestRunner.Configuration;
 
 namespace WinFormsTestRunner
 {
     public partial class TestingTabControl : UserControl
     {
-        //private string _scenarioPath = string.Empty; 
 
         public TestingTabControl()
         {
@@ -27,7 +27,8 @@ namespace WinFormsTestRunner
         {
             InitializeButtonEvents();
             InitializeTestStatus();
-            Logger.Initialize(TestMessagesContainer);
+            Logger.InitializeListView(TestMessagesContainer);
+
             TestingTabHandler.SetTestNotStartedMode();
         }
 
@@ -79,15 +80,16 @@ namespace WinFormsTestRunner
         private void ScenarioPathButton_Click(object sender, EventArgs e)
         {
             var scenarioPath = DialogFileHandler.GetFilePath("JSON files (*.json)|*.json|All files (*.*)|*.*");
-            ScenarioPathText.Text = scenarioPath;
-            //_scenarioPath = scenarioPath; 
-            TestRunner.CreateTestScenario(scenarioPath);
+            if (!string.IsNullOrEmpty(scenarioPath))
+            {
+                ScenarioPathText.Text = scenarioPath;
+                TestRunner.CreateTestScenario(scenarioPath);
+            }
         }
 
         private async void StartTestButton_Click(object sender, EventArgs e)
         {
             TestingTabHandler.SetTestStartedMode();
-            //await TestRunner.RunAsync(_scenarioPath);
             await TestRunner.RunAsync();
         }
 
