@@ -29,10 +29,7 @@ namespace WinFormsTestRunner
 
         static void HandleException(Exception ex)
         {
-            if (!string.IsNullOrEmpty(ConfigManager.Config.LogsFolderPath))
-            {
-                Logger.Log($"Wyst¹pi³ nieoczekiwany b³¹d: {ex.Message}"); // or write only to file?
-            }
+            Logger.Log($"Wyst¹pi³ nieoczekiwany b³¹d: {ex.Message}");
             MessageBox.Show($"Wyst¹pi³ nieoczekiwany b³¹d: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
