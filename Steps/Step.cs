@@ -38,7 +38,7 @@ namespace WinFormsTestRunner.Steps
             }
             catch (OpenQA.Selenium.ElementNotInteractableException ex)
             {
-                Logger.Log($"Nie można wykonać kroku {Name}. Na stronie mógł pojawić się nieoczekiwany element. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
+                Logger.Log($"{Name} - nieoczekiwany błąd. Na stronie mógł pojawić się nieoczekiwany element. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
                 HandleFailure(stepCounter, ex.Message);
             }
         }
@@ -69,9 +69,11 @@ namespace WinFormsTestRunner.Steps
                     ExecuteAndLog(stepCounter);
                     break;
                 case "EndTest":
-                    TestRunner.EndTest();
-                    break;
+                    TestSummary.RecordError();
+                    throw new UserCancelException();
             }
+
+            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
         }
 
         private void OnUserActionOccurred(string action)

@@ -32,11 +32,11 @@ namespace WinFormsTestRunner.Steps
 
             switch (_userAction)
             {
-                case "ContinueStep":
+                case "NextStep":
+                    TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
                     break;
                 case "EndTest":
-                    TestRunner.EndTest();
-                    break;
+                    throw new UserCancelException();
             }
         }
 
