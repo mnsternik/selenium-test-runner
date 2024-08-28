@@ -16,24 +16,27 @@ namespace WinFormsTestRunner.Configuration
         public static Config Config
         {
             get => _config ?? new Config();
-            set
-            {
-                ValidateConfig(value);
-                _config = value;
-            }
+            set => _config = value;
         }
 
         private static readonly string ConfigFileName = "config.json";
-        //private static readonly string ConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Configuration", ConfigFileName);
-        private static readonly string ConfigFilePath = Path.Combine("C:\\Users\\mnste\\OneDrive\\Pulpit\\TestRunnerData\\Configuration", ConfigFileName);
+        private static readonly string ConfigDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config");
+        private static readonly string ConfigFilePath = Path.Combine(ConfigDirectoryPath, ConfigFileName);
+
+        static ConfigManager()
+        {
+            EnsureConfigFileIsCreated();
+        }
 
         public static void LoadConfig()
         {
             Config = JSONFileHandler.Deserialize<Config>(ConfigFilePath);
         }
 
-        public static void SaveConfig()
+        public static void SaveConfig(Config config)
         {
+            ValidateConfig(config);
+            Config = config;
             JSONFileHandler.Serialize(Config, ConfigFilePath);
         }
 
@@ -51,13 +54,25 @@ namespace WinFormsTestRunner.Configuration
             {
                 throw new ConfigException($"Wskazano błędną ścieżke do pliku firefox.exe w pliku konfiguracyjnym: '{config.FirefoxPath}'");
             }
-            if (string.IsNullOrEmpty(config.LogsFolderPath) || !Directory.Exists(config.LogsFolderPath))
-            {
-                throw new ConfigException($"Wskazano błędną ścieżke do folderu, w którym mają tworzyć się logi: '{config.LogsFolderPath}'");
-            }
             if (config.ElementWaitingTimeout <= 0)
             {
                 throw new ConfigException($"Czas oczekiwania na elementy na stronie musi być większy niż 0, aktualna wartość: '{config.ElementWaitingTimeout}'");
+            }
+        }
+
+        private static void EnsureConfigFileIsCreated()
+        {
+            try
+            {
+                Directory.CreateDirectory(ConfigDirectoryPath);
+                if (!File.Exists(ConfigFilePath))
+                {
+                    JSONFileHandler.Serialize(Config, ConfigFilePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas tworzenia pliku konfiguracyjnego: {ex.Message}", "Config error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
