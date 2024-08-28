@@ -10,14 +10,12 @@ namespace WinFormsTestRunner.Models
     {
         public string DriverPath { get; set; }
         public string FirefoxPath { get; set; }
-        public string LogsFolderPath { get; set; }
         public int ElementWaitingTimeout { get; set; }
 
-        public Config(string driverPath, string firefoxPath, string logsFolderPath, int elementWaitingTimeout)
+        public Config(string driverPath, string firefoxPath, int elementWaitingTimeout)
         {
             DriverPath = driverPath;
             FirefoxPath = firefoxPath;
-            LogsFolderPath = logsFolderPath;
             ElementWaitingTimeout = elementWaitingTimeout;
         }
 
@@ -25,7 +23,6 @@ namespace WinFormsTestRunner.Models
         {
             DriverPath = config.DriverPath;
             FirefoxPath = config.FirefoxPath;
-            LogsFolderPath = config.LogsFolderPath;
             ElementWaitingTimeout = config.ElementWaitingTimeout;
         }
 
@@ -33,7 +30,6 @@ namespace WinFormsTestRunner.Models
         {
             DriverPath = string.Empty;
             FirefoxPath = string.Empty;
-            LogsFolderPath = string.Empty;
             ElementWaitingTimeout = 1;
         }
 
@@ -43,7 +39,6 @@ namespace WinFormsTestRunner.Models
             {
                 DriverPath = this.DriverPath,
                 FirefoxPath = this.FirefoxPath,
-                LogsFolderPath = this.LogsFolderPath,
                 ElementWaitingTimeout = this.ElementWaitingTimeout
             };
         }
