@@ -16,55 +16,79 @@ namespace WinFormsTestRunner.Core
     internal class TestRunner
     {
         private static List<Step> _steps = new List<Step>();
+        private static string _scenarioName = string.Empty;
         private static int _stepCounter = 0;
-        private static string _scenarioName = string.Empty; 
 
         public static FirefoxDriver? Driver { get; set; }
 
         public static event Action<string>? UserActionOccurred;
 
-        public async static Task RunAsync() 
+        public async static Task RunAsync()
+        {
+            SetViewBeforeTest();
+            try
+            {
+                InitDriver();
+                await ExecuteStepsAsync();
+            }
+            catch (UserCancelException ex)
+            {
+                Logger.Log(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Wystąpił nieoczekiwany błąd: {ex.Message}");
+            }
+            finally
+            {
+                SetViewAfterTest();
+                FinilizeTest();
+            }
+        }
+
+        public async static Task ExecuteStepsAsync()
         {
             Logger.Log($"Uruchamianie scenariusza testowego: {_scenarioName}", true);
-            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
-
-            InitDriver();
 
             foreach (var step in _steps)
             {
-                try
-                {
-                    await Task.Run(() => step.ExecuteAndLog(_stepCounter));
-                    _stepCounter++;
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log($"Wystąpił nieoczekiwany błąd: {ex.Message}"); 
-                }
+                await Task.Run(() => step.ExecuteAndLog(_stepCounter));
+                _stepCounter++;
             }
+        }
 
+        private static void SetViewBeforeTest()
+        {
+            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+        }
+
+        private static void SetViewAfterTest()
+        {
             TestingTabHandler.SetTestNotStartedMode();
             TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
+        }
+
+        private static void FinilizeTest()
+        {
             TestSummary.DisplaySummary();
             TestSummary.Reset();
             Driver?.Dispose();
         }
 
-        public static void EndTest()
-        {
-            TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
-            throw new TestRunnerException("Test został zakończony");
-        }
-
         public static void CreateTestScenario(string scenarioPath)
         {
-            TestScenario ts = TestScenario.LoadScenario(scenarioPath);
-            _scenarioName = ts.Name; 
-
-            _steps.Clear();
-            _steps = CreateListOfSteps(ts);
-
-            TestingTabHandler.SetTestStatus("Gotowy do uruchomienia");
+            try
+            {
+                TestScenario ts = TestScenario.LoadScenario(scenarioPath);
+                _scenarioName = ts.Name;
+                _steps.Clear();
+                _steps = CreateListOfSteps(ts);
+                TestingTabHandler.SetTestStatus("Gotowy do uruchomienia");
+            }
+            catch (InvalidScenarioException ex)
+            {
+                Logger.Log(ex.Message);
+            }
         }
 
         public static List<Step> CreateListOfSteps(TestScenario ts)
