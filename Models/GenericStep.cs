@@ -32,8 +32,8 @@ namespace WinFormsTestRunner.Models
                 "select" => new SelectStep(step),
                 "verify" => new VerifyStep(step),
                 "iframe-change" => new ChangeContextStep(step),
-                "manual" => new ManualStep(step),
-                "write" or "write-login" or "write-password" => new WriteStep(step),
+                "write"  => new WriteStep(step),
+                "manual" or "credentials" => new ManualStep(step),
                 _ => throw new InvalidStepParameterException($"Nieprawidłowy rodzaj akcji ActionType: '{step.Action}'"),
             };
         }
