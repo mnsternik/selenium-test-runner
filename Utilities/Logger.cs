@@ -9,12 +9,13 @@ namespace WinFormsTestRunner.Utilities
     {
         private static ListView? _listView;
         private static readonly string _logsDirectoryPath;
-        private static readonly string _logFilePath;
+        public static readonly string LogFilePath;
 
         static Logger()
         {
-            _logsDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
-            _logFilePath = Path.Combine(_logsDirectoryPath, DateTime.Now.ToString("ddMMyyyy") + ".log");
+            DirectoryInfo directoryInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            _logsDirectoryPath = Path.Combine(directoryInfo.Parent.FullName, "logs");
+            LogFilePath = Path.Combine(_logsDirectoryPath, DateTime.Now.ToString("ddMMyyyy") + ".log");
             EnsureLogFileExists();
         }
 
@@ -81,7 +82,7 @@ namespace WinFormsTestRunner.Utilities
 
             try
             {
-                File.AppendAllText(_logFilePath, logMessage);
+                File.AppendAllText(LogFilePath, logMessage);
             }
             catch (Exception ex)
             {
@@ -94,9 +95,9 @@ namespace WinFormsTestRunner.Utilities
             try
             {
                 Directory.CreateDirectory(_logsDirectoryPath);
-                if (!File.Exists(_logFilePath))
+                if (!File.Exists(LogFilePath))
                 {
-                    File.Create(_logFilePath).Dispose(); 
+                    File.Create(LogFilePath).Dispose(); 
                 }
             }
             catch (Exception ex)
