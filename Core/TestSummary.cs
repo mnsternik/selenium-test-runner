@@ -28,11 +28,15 @@ namespace WinFormsTestRunner.Core
 
         public static  void DisplaySummary()
         {
-            string message = HasErrors()
-                ? $"KONIEC: Test zakończył się z liczbą błędów: {_errorCount}"
-                : "KONIEC: Test zakończył się bez błędów";
-
-            Logger.Log(message); 
+            if (HasErrors())
+            {
+                Logger.Log($"KONIEC: Test zakończył się z liczbą błędów: {_errorCount}");
+                //Logger.Log($"Szczegóły w logu: {Logger.LogFilePath}"); 
+            }
+            else
+            {
+                Logger.Log("KONIEC: Test zakończył się bez błędów");
+            }
         }
 
         public static void Reset()
