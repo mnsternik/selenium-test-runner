@@ -19,32 +19,36 @@ namespace WinFormsTestRunner.Configuration
             set => _config = value;
         }
 
-        private static readonly string ConfigFileName = "config.json";
-        private static readonly string ConfigDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config");
-        private static readonly string ConfigFilePath = Path.Combine(ConfigDirectoryPath, ConfigFileName);
+        private static readonly string _configFileName;
+        private static readonly string _configDirectoryPath;
+        private static readonly string _configFilePath;
 
         static ConfigManager()
         {
+            DirectoryInfo directoryInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            _configFileName = "config.json";
+            _configDirectoryPath = Path.Combine(directoryInfo.Parent.FullName, "config");
+            _configFilePath = Path.Combine(_configDirectoryPath, _configFileName);
             EnsureConfigFileIsCreated();
         }
 
         public static void LoadConfig()
         {
-            Config = JSONFileHandler.Deserialize<Config>(ConfigFilePath);
+            Config = JSONFileHandler.Deserialize<Config>(_configFilePath);
         }
 
         public static void SaveConfig(Config config)
         {
             ValidateConfig(config);
             Config = config;
-            JSONFileHandler.Serialize(Config, ConfigFilePath);
+            JSONFileHandler.Serialize(Config, _configFilePath);
         }
 
         private static void ValidateConfig(Config config)
         {
             if (config == null)
             {
-                throw new ConfigException($"Plik konfiguracyjny jest pusty lub nie istnieje. Sprawdzana lokalizacja: '{ConfigFilePath}'");
+                throw new ConfigException($"Plik konfiguracyjny jest pusty lub nie istnieje. Sprawdzana lokalizacja: '{_configFilePath}'");
             }
             if (string.IsNullOrEmpty(config.DriverPath) || !File.Exists(config.DriverPath))
             {
@@ -64,10 +68,10 @@ namespace WinFormsTestRunner.Configuration
         {
             try
             {
-                Directory.CreateDirectory(ConfigDirectoryPath);
-                if (!File.Exists(ConfigFilePath))
+                Directory.CreateDirectory(_configDirectoryPath);
+                if (!File.Exists(_configFilePath))
                 {
-                    JSONFileHandler.Serialize(Config, ConfigFilePath);
+                    JSONFileHandler.Serialize(Config, _configFilePath);
                 }
             }
             catch (Exception ex)
