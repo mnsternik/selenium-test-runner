@@ -56,6 +56,7 @@ namespace WinFormsTestRunner.UI
             SettingsTabHandler.SetTextboxState("DriverPathText", false);
             SettingsTabHandler.SetTextboxState("BrowserPathText", false);
             SettingsTabHandler.SetTextboxState("WaitingTimeoutText", false);
+            SettingsTabHandler.SetTextboxState("StepDelayText", false);
         }
 
         public static void SetViewMode()
@@ -69,6 +70,7 @@ namespace WinFormsTestRunner.UI
             SettingsTabHandler.SetTextboxState("DriverPathText", true);
             SettingsTabHandler.SetTextboxState("BrowserPathText", true);
             SettingsTabHandler.SetTextboxState("WaitingTimeoutText", true);
+            SettingsTabHandler.SetTextboxState("StepDelayText", true);
         }
     }
 }

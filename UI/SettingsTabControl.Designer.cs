@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             SaveConfigButton = new Button();
-            WaitingTimeoutText = new TextBox();
             WaitingTimeoutLabel = new Label();
             BrowserPathButton = new Button();
             BrowserPathText = new TextBox();
@@ -40,11 +39,16 @@
             EditConfigButton = new Button();
             CancelEditConfigButton = new Button();
             ConfigContentLabel = new Label();
+            TimeDelayLabel = new Label();
+            StepDelayNumericUpDown = new NumericUpDown();
+            WaitingTimeoutNumericUpDown = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)StepDelayNumericUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)WaitingTimeoutNumericUpDown).BeginInit();
             SuspendLayout();
             // 
             // SaveConfigButton
             // 
-            SaveConfigButton.Location = new Point(204, 260);
+            SaveConfigButton.Location = new Point(204, 312);
             SaveConfigButton.Margin = new Padding(4, 3, 4, 3);
             SaveConfigButton.Name = "SaveConfigButton";
             SaveConfigButton.Size = new Size(116, 26);
@@ -53,19 +57,10 @@
             SaveConfigButton.UseVisualStyleBackColor = true;
             SaveConfigButton.Click += SaveConfigButton_Click;
             // 
-            // WaitingTimeoutText
-            // 
-            WaitingTimeoutText.Location = new Point(25, 222);
-            WaitingTimeoutText.Margin = new Padding(4, 3, 4, 3);
-            WaitingTimeoutText.Name = "WaitingTimeoutText";
-            WaitingTimeoutText.Size = new Size(392, 23);
-            WaitingTimeoutText.TabIndex = 28;
-            WaitingTimeoutText.TextChanged += WaitingTimeoutText_TextChanged;
-            // 
             // WaitingTimeoutLabel
             // 
             WaitingTimeoutLabel.AutoSize = true;
-            WaitingTimeoutLabel.Location = new Point(25, 201);
+            WaitingTimeoutLabel.Location = new Point(25, 194);
             WaitingTimeoutLabel.Margin = new Padding(4, 0, 4, 0);
             WaitingTimeoutLabel.Name = "WaitingTimeoutLabel";
             WaitingTimeoutLabel.Size = new Size(240, 15);
@@ -132,7 +127,7 @@
             // 
             // EditConfigButton
             // 
-            EditConfigButton.Location = new Point(25, 260);
+            EditConfigButton.Location = new Point(25, 312);
             EditConfigButton.Name = "EditConfigButton";
             EditConfigButton.Size = new Size(75, 26);
             EditConfigButton.TabIndex = 30;
@@ -142,7 +137,7 @@
             // 
             // CancelEditConfigButton
             // 
-            CancelEditConfigButton.Location = new Point(106, 260);
+            CancelEditConfigButton.Location = new Point(106, 312);
             CancelEditConfigButton.Name = "CancelEditConfigButton";
             CancelEditConfigButton.Size = new Size(91, 26);
             CancelEditConfigButton.TabIndex = 31;
@@ -160,15 +155,43 @@
             ConfigContentLabel.TabIndex = 32;
             ConfigContentLabel.Text = "Zawartość pliku konfiguracyjnego";
             // 
+            // TimeDelayLabel
+            // 
+            TimeDelayLabel.AutoSize = true;
+            TimeDelayLabel.Location = new Point(25, 255);
+            TimeDelayLabel.Margin = new Padding(4, 0, 4, 0);
+            TimeDelayLabel.Name = "TimeDelayLabel";
+            TimeDelayLabel.Size = new Size(325, 15);
+            TimeDelayLabel.TabIndex = 33;
+            TimeDelayLabel.Text = "Odstęp czasowy pomiędzy kolejnymi krokami testowymi (s):";
+            // 
+            // StepDelayNumericUpDown
+            // 
+            StepDelayNumericUpDown.Location = new Point(25, 273);
+            StepDelayNumericUpDown.Name = "StepDelayNumericUpDown";
+            StepDelayNumericUpDown.Size = new Size(120, 23);
+            StepDelayNumericUpDown.TabIndex = 34;
+            StepDelayNumericUpDown.ValueChanged += StepDelayNumericUpDown_ValueChanged;
+            // 
+            // WaitingTimeoutNumericUpDown
+            // 
+            WaitingTimeoutNumericUpDown.Location = new Point(25, 212);
+            WaitingTimeoutNumericUpDown.Name = "WaitingTimeoutNumericUpDown";
+            WaitingTimeoutNumericUpDown.Size = new Size(120, 23);
+            WaitingTimeoutNumericUpDown.TabIndex = 35;
+            WaitingTimeoutNumericUpDown.ValueChanged += WaitingTimeoutNumericUpDown_ValueChanged;
+            // 
             // SettingsTabControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(WaitingTimeoutNumericUpDown);
+            Controls.Add(StepDelayNumericUpDown);
+            Controls.Add(TimeDelayLabel);
             Controls.Add(ConfigContentLabel);
             Controls.Add(CancelEditConfigButton);
             Controls.Add(EditConfigButton);
             Controls.Add(SaveConfigButton);
-            Controls.Add(WaitingTimeoutText);
             Controls.Add(WaitingTimeoutLabel);
             Controls.Add(BrowserPathButton);
             Controls.Add(BrowserPathText);
@@ -178,6 +201,8 @@
             Controls.Add(DriverPathLabel);
             Name = "SettingsTabControl";
             Size = new Size(845, 476);
+            ((System.ComponentModel.ISupportInitialize)StepDelayNumericUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)WaitingTimeoutNumericUpDown).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -185,7 +210,6 @@
         #endregion
 
         private Button SaveConfigButton;
-        private TextBox WaitingTimeoutText;
         private Label WaitingTimeoutLabel;
         private Button BrowserPathButton;
         private TextBox BrowserPathText;
@@ -196,5 +220,8 @@
         private Button EditConfigButton;
         private Button CancelEditConfigButton;
         private Label ConfigContentLabel;
+        private Label TimeDelayLabel;
+        private NumericUpDown StepDelayNumericUpDown;
+        private NumericUpDown WaitingTimeoutNumericUpDown;
     }
 }

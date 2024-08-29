@@ -39,7 +39,8 @@ namespace WinFormsTestRunner
 
             DriverPathText.Text = _config.DriverPath;
             BrowserPathText.Text = _config.FirefoxPath;
-            WaitingTimeoutText.Text = _config.ElementWaitingTimeout.ToString();
+            WaitingTimeoutNumericUpDown.Value = _config.ElementWaitingTimeout;
+            StepDelayNumericUpDown.Value = _config.StepDelay;
         }
 
         private void OnButtonStateChanged(string buttonName, bool isEnabled)
@@ -89,7 +90,10 @@ namespace WinFormsTestRunner
                     BrowserPathText.ReadOnly = isReadonly;
                     break;
                 case "WaitingTimeoutText":
-                    WaitingTimeoutText.ReadOnly = isReadonly;
+                    WaitingTimeoutNumericUpDown.ReadOnly = isReadonly;
+                    break;
+                case "StepDelayText":
+                    StepDelayNumericUpDown.ReadOnly = isReadonly;
                     break;
             }
         }
@@ -108,21 +112,25 @@ namespace WinFormsTestRunner
             _config.FirefoxPath = browserPath;
         }
 
-        private void WaitingTimeoutText_TextChanged(object sender, EventArgs e)
+        private void WaitingTimeoutNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _config.ElementWaitingTimeout = int.Parse(WaitingTimeoutText.Text);
+            _config.ElementWaitingTimeout = (int)WaitingTimeoutNumericUpDown.Value; 
+        }
+
+        private void StepDelayNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            _config.StepDelay = (int)StepDelayNumericUpDown.Value;
         }
 
         private void SaveConfigButton_Click(object sender, EventArgs e)
         {
-            //ConfigManager.Config = (Config)_config.Clone();
             ConfigManager.SaveConfig(_config);
             SettingsTabHandler.SetViewMode();
         }
 
         private void EditConfigButton_Click(object sender, EventArgs e)
         {
-            SettingsTabHandler.SetEditMode(); 
+            SettingsTabHandler.SetEditMode();
         }
 
         private void CancelEditConfigButton_Click(object sender, EventArgs e)
