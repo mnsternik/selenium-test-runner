@@ -41,6 +41,11 @@ namespace WinFormsTestRunner.Steps
                 Logger.Log($"{Name} - nieoczekiwany błąd. Na stronie mógł pojawić się nieoczekiwany element. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
                 HandleFailure(stepCounter, ex.Message);
             }
+            catch (OpenQA.Selenium.NoSuchElementException ex)
+            {
+                Logger.Log($"{Name} - Nie odnaleziono oczekiwanego elementu. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
+                HandleFailure(stepCounter, ex.Message);
+            }
         }
 
         public virtual void HandleAction()
