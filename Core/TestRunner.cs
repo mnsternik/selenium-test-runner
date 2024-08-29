@@ -35,10 +35,6 @@ namespace WinFormsTestRunner.Core
             {
                 Logger.Log(ex.Message);
             }
-            catch (Exception ex)
-            {
-                Logger.Log($"Wystąpił nieoczekiwany błąd: {ex.Message}");
-            }
             finally
             {
                 SetViewAfterTest();
@@ -53,6 +49,7 @@ namespace WinFormsTestRunner.Core
             foreach (var step in _steps)
             {
                 await Task.Run(() => step.ExecuteAndLog(_stepCounter));
+                await Task.Delay(ConfigManager.Config.StepDelay * 1000);
                 _stepCounter++;
             }
         }
@@ -66,6 +63,7 @@ namespace WinFormsTestRunner.Core
         {
             TestingTabHandler.SetTestNotStartedMode();
             TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
+            TestingTabHandler.SetButtonState("OpenLogFileButton", true); 
         }
 
         private static void FinilizeTest()
