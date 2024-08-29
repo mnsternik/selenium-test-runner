@@ -12,6 +12,7 @@ using WinFormsTestRunner.UI;
 using System.Windows.Forms.VisualStyles;
 using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Configuration;
+using System.Diagnostics;
 
 namespace WinFormsTestRunner
 {
@@ -57,6 +58,9 @@ namespace WinFormsTestRunner
                     break;
                 case "ScenarioPathButton":
                     ScenarioPathButton.Enabled = isEnabled;
+                    break;
+                case "OpenLogFileButton":
+                    OpenLogFileButton.Enabled = isEnabled;
                     break;
             }
         }
@@ -106,6 +110,15 @@ namespace WinFormsTestRunner
         private void NextStepButton_Click(object sender, EventArgs e)
         {
             TestingTabHandler.SetTestStartedMode();
+        }
+
+        private void OpenLogFileButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Logger.LogFilePath,
+                UseShellExecute = true 
+            });
         }
 
         private void InitializeButtonEvents()

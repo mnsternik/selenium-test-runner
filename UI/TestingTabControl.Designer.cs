@@ -41,6 +41,7 @@
             StepNameColumn = new ColumnHeader();
             StepStatusColumn = new ColumnHeader();
             ScenarioPathLabel = new Label();
+            OpenLogFileButton = new Button();
             SuspendLayout();
             // 
             // EndTestButton
@@ -162,10 +163,21 @@
             ScenarioPathLabel.TabIndex = 14;
             ScenarioPathLabel.Text = "Scenariusz testowy:";
             // 
+            // OpenLogFileButton
+            // 
+            OpenLogFileButton.Location = new Point(103, 183);
+            OpenLogFileButton.Name = "OpenLogFileButton";
+            OpenLogFileButton.Size = new Size(109, 26);
+            OpenLogFileButton.TabIndex = 23;
+            OpenLogFileButton.Text = "Otwórz plik logu";
+            OpenLogFileButton.UseVisualStyleBackColor = true;
+            OpenLogFileButton.Click += OpenLogFileButton_Click;
+            // 
             // TestingTabControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(OpenLogFileButton);
             Controls.Add(TestMessagesContainer);
             Controls.Add(EndTestButton);
             Controls.Add(RetryStepButton);
@@ -197,5 +209,6 @@
         private ColumnHeader StepNameColumn;
         private ColumnHeader StepStatusColumn;
         private Label ScenarioPathLabel;
+        private Button OpenLogFileButton;
     }
 }

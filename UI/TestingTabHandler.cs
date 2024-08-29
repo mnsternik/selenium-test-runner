@@ -42,6 +42,7 @@ namespace WinFormsTestRunner.UI
             TestingTabHandler.SetButtonState("NextStepButton", false);
             TestingTabHandler.SetButtonState("RetryStepButton", false);
             TestingTabHandler.SetButtonState("ScenarioPathButton", false);
+            TestingTabHandler.SetButtonState("OpenLogFileButton", false);
         }
 
         public static void SetTestNotStartedMode()
@@ -51,6 +52,7 @@ namespace WinFormsTestRunner.UI
             TestingTabHandler.SetButtonState("NextStepButton", false);
             TestingTabHandler.SetButtonState("RetryStepButton", false);
             TestingTabHandler.SetButtonState("ScenarioPathButton", true);
+            TestingTabHandler.SetButtonState("OpenLogFileButton", false);
         }
     }
 }
