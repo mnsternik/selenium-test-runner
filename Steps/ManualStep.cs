@@ -13,7 +13,6 @@ namespace WinFormsTestRunner.Steps
 {
     internal class ManualStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
     {
-
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;
 
@@ -23,7 +22,7 @@ namespace WinFormsTestRunner.Steps
             TestingTabHandler.SetButtonState("EndTestButton", true);
             TestingTabHandler.SetTestStatus("Oczekiwanie na akcje użytkownika");
 
-            Logger.Log("Uruchomiono krok ręczny - oczekiwanie na akcje użytkownika");
+            Logger.Log($"Uruchomiono krok ręczny: {Name}");
 
             _waitHandle.Reset();
             TestRunner.UserActionOccurred += OnUserActionOccurred;
