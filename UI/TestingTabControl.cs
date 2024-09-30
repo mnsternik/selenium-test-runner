@@ -83,7 +83,9 @@ namespace WinFormsTestRunner
 
         private void ScenarioPathButton_Click(object sender, EventArgs e)
         {
-            var scenarioPath = DialogFileHandler.GetFilePath("JSON files (*.json)|*.json|All files (*.*)|*.*");
+            DirectoryInfo directoryInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+            string initialDirectory  = Path.Combine(directoryInfo.Parent.FullName, "scenarios");
+            var scenarioPath = DialogFileHandler.GetFilePath("JSON files (*.json)|*.json|All files (*.*)|*.*", initialDirectory);
             if (!string.IsNullOrEmpty(scenarioPath))
             {
                 ScenarioPathText.Text = scenarioPath;
