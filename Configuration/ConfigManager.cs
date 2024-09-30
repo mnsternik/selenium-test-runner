@@ -32,6 +32,22 @@ namespace WinFormsTestRunner.Configuration
             EnsureConfigFileIsCreated();
         }
 
+        private static void EnsureConfigFileIsCreated()
+        {
+            try
+            {
+                Directory.CreateDirectory(_configDirectoryPath);
+                if (!File.Exists(_configFilePath))
+                {
+                    JSONFileHandler.Serialize(Config, _configFilePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Wystąpił błąd podczas tworzenia pliku konfiguracyjnego: {ex.Message}", "Config error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public static void LoadConfig()
         {
             Config = JSONFileHandler.Deserialize<Config>(_configFilePath);
@@ -61,22 +77,6 @@ namespace WinFormsTestRunner.Configuration
             if (config.ElementWaitingTimeout <= 0)
             {
                 throw new ConfigException($"Czas oczekiwania na elementy na stronie musi być większy niż 0, aktualna wartość: '{config.ElementWaitingTimeout}'");
-            }
-        }
-
-        private static void EnsureConfigFileIsCreated()
-        {
-            try
-            {
-                Directory.CreateDirectory(_configDirectoryPath);
-                if (!File.Exists(_configFilePath))
-                {
-                    JSONFileHandler.Serialize(Config, _configFilePath);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Wystąpił błąd podczas tworzenia pliku konfiguracyjnego: {ex.Message}", "Config error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
