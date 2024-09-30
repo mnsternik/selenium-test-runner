@@ -1,27 +1,22 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Exceptions;
-using WinFormsTestRunner.Models;
 using WinFormsTestRunner.UI;
 using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class Step(string name, string actionType, string? elementXPath, string? elementId)
+    internal class Step(string name, string action, string? elementXPath, string? elementId)
     {
         public string Name { get; set; } = name ?? string.Empty;
-        public string ActionType { get; set; } = actionType ?? string.Empty;
+        public string Action { get; set; } = action ?? string.Empty;
         public string? ElementXPath { get; set; } = elementXPath;
         public string? ElementId { get; set; } = elementId;
 
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;
+
+        protected string? messageAfterLog;
 
         public void ExecuteAndLog(int stepCounter)
         {
@@ -29,6 +24,7 @@ namespace WinFormsTestRunner.Steps
             {
                 HandleAction();
                 Logger.Log($"{Name}", true);
+                ShowAdditionalMessageAfterLog();
             }
             catch (TestRunnerException ex)
             {
@@ -49,7 +45,7 @@ namespace WinFormsTestRunner.Steps
 
         public virtual void HandleAction()
         {
-            // Każdy klasa pochodna posiada własną implementacje metody HandleAction
+            // Każdy klasa pochodna posiada własną implementacje metody 
         }
 
         public void HandleFailure(int stepCounter, string message)
@@ -78,6 +74,14 @@ namespace WinFormsTestRunner.Steps
             }
 
             TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+        }
+
+        public void ShowAdditionalMessageAfterLog()
+        {
+            if (!string.IsNullOrEmpty(messageAfterLog))
+            {
+                Logger.Log(messageAfterLog);
+            }
         }
 
         private void OnUserActionOccurred(string action)

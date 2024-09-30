@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsTestRunner.Models;
+﻿using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
@@ -14,21 +9,8 @@ namespace WinFormsTestRunner.Steps
         public override void HandleAction()
         {
             var element = GetElement();
-            string targetValue;
-            switch (ActionType)
-            {
-                //case "write-password":
-                //    targetValue = UserInputUtility.ConvertSecureStringToString(UserInputUtility.ReadPassword());
-                //    break;
-                //case "write-login":
-                //    targetValue = UserInputUtility.ReadLogin();
-                //    break;
-                default:
-                    targetValue = Value;
-                    break;
-            }
             element.Clear();
-            element.SendKeys(targetValue);
+            element.SendKeys(Value);
         }
     }
 }

@@ -1,14 +1,8 @@
 ﻿using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Exceptions;
 using WinFormsTestRunner.Models;
-using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
@@ -45,19 +39,22 @@ namespace WinFormsTestRunner.Steps
                     AssertValueIsNot();
                     break;
                 default:
-                    throw new InvalidStepParameterException($"Niepoprawna wartość paramteru CheckType: '{CheckType}'");
+                    throw new InvalidStepParameterException($"Niepoprawna wartość paramteru {nameof(CheckType)}: '{CheckType}'");
             }
         }
 
         private void CheckIfElementIsDisplayed()
         {
-            if (_element != null && _element.Displayed)
+            if (_element == null || !_element.Displayed)
             {
-                Logger.Log($"Znaleziono element [ID: {ElementId}]");
-            }
-            else
-            {
-                throw new InavlidVerificationException($"Nie znaleziono elemenetu z ID {ElementId}");
+                if (ElementId != null)
+                {
+                    throw new InavlidVerificationException($"Nie znaleziono elemenetu z ID: {ElementId}");
+                }
+                else if (ElementXPath != null)
+                {
+                    throw new InavlidVerificationException($"Nie znaleziono elemenetu z XPath: {ElementXPath}");
+                }
             }
         }
 
@@ -66,11 +63,12 @@ namespace WinFormsTestRunner.Steps
             bool isTextValid = WaitForAndCheckCondtition(driver => _element?.Text != ExpectedValue && !string.IsNullOrEmpty(_element?.Text));
             if (isTextValid)
             {
-                Logger.Log($"Sukces: Oczekiwano tekstu innego niż '{ExpectedValue}', znaleziono tekst '{_element?.Text}'");
+                
+                messageAfterLog = $"Sukces: Oczekiwano tekstu innego niż: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano tekstu innego niż '{ExpectedValue}', znaleziono tekst '{_element?.Text}'");
+                throw new InavlidVerificationException($"Oczekiwano tekstu innego niż: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'");
             }
         }
 
@@ -79,11 +77,11 @@ namespace WinFormsTestRunner.Steps
             bool isTextEqualToExpected = WaitForAndCheckCondtition(driver => _element?.Text == ExpectedValue);
             if (isTextEqualToExpected)
             {
-                Logger.Log($"Sukces: Oczekiwano tekstu '{ExpectedValue}', znaleziono tekst '{_element?.Text}'");
+                messageAfterLog = $"Sukces: Oczekiwano tekstu: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano tekstu '{ExpectedValue}', znaleziono tekst '{_element?.Text}'");
+                throw new InavlidVerificationException($"Oczekiwano tekstu: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'");
             }
         }
 
@@ -96,11 +94,11 @@ namespace WinFormsTestRunner.Steps
 
             if (isValueValid)
             {
-                Logger.Log($"Sukces: Oczekiwano wartości innej niż '{ExpectedValue}', znaleziono wartość '{_element?.GetAttribute("value")}'");
+                messageAfterLog = $"Sukces: Oczekiwano wartości innej niż: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano wartości innej niż '{ExpectedValue}', znaleziono wartość '{_element?.GetAttribute("value")}'");
+                throw new InavlidVerificationException($"Oczekiwano wartości innej niż: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
             }
         }
 
@@ -109,11 +107,11 @@ namespace WinFormsTestRunner.Steps
             bool isValueEqualToExpected = WaitForAndCheckCondtition(driver => _element?.GetAttribute("value") == ExpectedValue);
             if (isValueEqualToExpected)
             {
-                Logger.Log($"Sukces: Oczekiwano wartości '{ExpectedValue}', znaleziono wartość '{_element?.GetAttribute("value")}'");
+                messageAfterLog = $"Sukces: Oczekiwano wartości: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano wartości '{ExpectedValue}', znaleziono wartość '{_element?.GetAttribute("value")}'");
+                throw new InavlidVerificationException($"Oczekiwano wartości: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
             }
         }
 
