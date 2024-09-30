@@ -21,9 +21,8 @@ namespace WinFormsTestRunner.Models
         public string? OptionType { get; set; } = string.Empty;
         public string? CheckType { get; set; } = string.Empty;
         public bool? CheckInsideSelect { get; set; } = false;
-        public string? BackupScenarioPath { get; set; } = string.Empty;
 
-        public static Step TransformIntoSpecifedStep(GenericStep step)
+        public static Step TransformIntoSpecifedStep(GenericStep step, int stepNumber)
         {
             return step.Action switch
             {
@@ -34,7 +33,7 @@ namespace WinFormsTestRunner.Models
                 "iframe-change" => new ChangeContextStep(step),
                 "write"  => new WriteStep(step),
                 "manual" or "credentials" => new ManualStep(step),
-                _ => throw new InvalidStepParameterException($"Nieprawidłowy rodzaj akcji ActionType: '{step.Action}'"),
+                _ => throw new InvalidStepParameterException($"Nieprawidłowy rodzaj akcji w kroku {stepNumber} w parametrze {nameof(step.Action)}: '{step.Action}'"),
             };
         }
 
