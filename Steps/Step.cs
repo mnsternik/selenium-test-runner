@@ -13,13 +13,12 @@ using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class Step(string name, string actionType, string? elementXPath, string? elementId, string? backupScenarioPath)
+    internal class Step(string name, string actionType, string? elementXPath, string? elementId)
     {
         public string Name { get; set; } = name ?? string.Empty;
         public string ActionType { get; set; } = actionType ?? string.Empty;
         public string? ElementXPath { get; set; } = elementXPath;
         public string? ElementId { get; set; } = elementId;
-        public string? BackupScenarioPath { get; set; } = backupScenarioPath;
 
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;
@@ -38,12 +37,12 @@ namespace WinFormsTestRunner.Steps
             }
             catch (OpenQA.Selenium.ElementNotInteractableException ex)
             {
-                Logger.Log($"{Name} - nieoczekiwany błąd. Na stronie mógł pojawić się nieoczekiwany element. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
+                Logger.Log($"{Name} - Nie można podjąć interkacji ze wskazanym elementem.", false);
                 HandleFailure(stepCounter, ex.Message);
             }
             catch (OpenQA.Selenium.NoSuchElementException ex)
             {
-                Logger.Log($"{Name} - Nie odnaleziono oczekiwanego elementu. Spróbuj ponownie lub przejdź do kolejnego kroku.", false);
+                Logger.Log($"{Name} - Nie odnaleziono oczekiwanego elementu na stronie.", false);
                 HandleFailure(stepCounter, ex.Message);
             }
         }

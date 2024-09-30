@@ -11,7 +11,7 @@ using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class ManualStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class ManualStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;

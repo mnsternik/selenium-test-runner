@@ -8,7 +8,7 @@ using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class NavigateStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class NavigateStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public string Url { get; set; } = step.Url ?? string.Empty;
 

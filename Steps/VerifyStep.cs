@@ -12,7 +12,7 @@ using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class VerifyStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class VerifyStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public string CheckType { get; set; } = step.CheckType ?? string.Empty;
         public string ExpectedValue { get; set; } = step.ExpectedValue ?? string.Empty;

@@ -7,7 +7,7 @@ using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class ClickStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class ClickStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public override void HandleAction()
         {

@@ -7,7 +7,7 @@ using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class WriteStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class WriteStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public string Value { get; set; } = step.Value ?? string.Empty;
 

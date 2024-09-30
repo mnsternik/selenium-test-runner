@@ -9,7 +9,7 @@ using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class SelectStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class SelectStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public string OptionType { get; set; } = step.OptionType ?? string.Empty;
         public string Value { get; set; } = step.Value ?? string.Empty;

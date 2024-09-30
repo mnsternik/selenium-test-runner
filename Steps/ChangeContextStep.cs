@@ -9,7 +9,7 @@ using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class ChangeContextStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId, step.BackupScenarioPath)
+    internal class ChangeContextStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
     {
         public string ContextId { get; set; } = step.ContextId ?? string.Empty;
 
