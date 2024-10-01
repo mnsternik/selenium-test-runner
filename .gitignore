@@ -14,3 +14,4 @@
 
 # Exclude user-specific project files
 *.csproj.user
+.Properties/
