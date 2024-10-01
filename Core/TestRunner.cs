@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium.Firefox;
 using WinFormsTestRunner.Configuration;
-using WinFormsTestRunner.Steps;
 using WinFormsTestRunner.Utilities;
 using WinFormsTestRunner.Exceptions;
 using WinFormsTestRunner.UI;
@@ -20,11 +19,13 @@ namespace WinFormsTestRunner.Core
         public static void LoadScenario(string path)
         {
             ts = TestScenario.LoadScenario(path);
+            TestingTabHandler.SetAfterScenarioSelectMode();
         }
 
         public async static Task RunAsync()
         {
-            SetViewBeforeTest();
+            TestingTabHandler.SetDuringTestMode();
+
             try
             {
                 InitDriver();
@@ -36,7 +37,7 @@ namespace WinFormsTestRunner.Core
             }
             finally
             {
-                SetViewAfterTest();
+                TestingTabHandler.SetAfterTestEndedMode();
                 FinilizeTest();
             }
         }
@@ -51,18 +52,6 @@ namespace WinFormsTestRunner.Core
                 await Task.Delay(ConfigManager.Config.StepDelay * 1000);
                 _stepCounter++;
             }
-        }
-
-        private static void SetViewBeforeTest()
-        {
-            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
-        }
-
-        private static void SetViewAfterTest()
-        {
-            TestingTabHandler.SetTestNotStartedMode();
-            TestingTabHandler.SetTestStatus("Zakończono wykonywanie scenariusza");
-            TestingTabHandler.SetButtonState("OpenLogFileButton", true); 
         }
 
         private static void FinilizeTest()

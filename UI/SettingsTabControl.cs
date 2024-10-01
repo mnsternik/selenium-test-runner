@@ -30,7 +30,7 @@ namespace WinFormsTestRunner
 
             SettingsTabHandler.ButtonStateChanged += OnButtonStateChanged;
             SettingsTabHandler.TextboxStateChanged += OnTextboxStateChanged;
-            SettingsTabHandler.SetViewMode();
+            SettingsTabHandler.SetReadonlyMode();
         }
 
         private void InitializeConfigData()
@@ -125,7 +125,7 @@ namespace WinFormsTestRunner
         private void SaveConfigButton_Click(object sender, EventArgs e)
         {
             ConfigManager.SaveConfig(_config);
-            SettingsTabHandler.SetViewMode();
+            SettingsTabHandler.SetReadonlyMode();
         }
 
         private void EditConfigButton_Click(object sender, EventArgs e)
@@ -136,7 +136,7 @@ namespace WinFormsTestRunner
         private void CancelEditConfigButton_Click(object sender, EventArgs e)
         {
             InitializeConfigData();
-            SettingsTabHandler.SetViewMode();
+            SettingsTabHandler.SetReadonlyMode();
         }
     }
 }

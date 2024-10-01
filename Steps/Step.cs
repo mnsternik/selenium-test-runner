@@ -55,10 +55,7 @@ namespace WinFormsTestRunner.Steps
 
         public void HandleFailure(int stepCounter, string message)
         {
-            TestingTabHandler.SetButtonState("RetryStepButton", true);
-            TestingTabHandler.SetButtonState("NextStepButton", true);
-            TestingTabHandler.SetButtonState("EndTestButton", true);
-            TestingTabHandler.SetTestStatus("Oczekiwanie na akcje użytkownika");
+            TestingTabHandler.SetDuringFailedStepMode();
 
             _waitHandle.Reset();
             TestRunner.UserActionOccurred += OnUserActionOccurred;
@@ -78,7 +75,7 @@ namespace WinFormsTestRunner.Steps
                     throw new UserCancelException();
             }
 
-            TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+            TestingTabHandler.SetDuringTestMode();
         }
 
         public void ShowAdditionalMessageAfterLog()

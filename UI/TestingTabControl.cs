@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsTestRunner.Utilities;
+﻿using WinFormsTestRunner.Utilities;
 using WinFormsTestRunner.UI;
-using System.Windows.Forms.VisualStyles;
 using WinFormsTestRunner.Core;
-using WinFormsTestRunner.Configuration;
 using System.Diagnostics;
 
 namespace WinFormsTestRunner
 {
     public partial class TestingTabControl : UserControl
     {
-
         public TestingTabControl()
         {
             InitializeComponent();
@@ -26,11 +14,11 @@ namespace WinFormsTestRunner
 
         private void TestingTabControl_Load(object sender, EventArgs e)
         {
-            InitializeButtonEvents();
-            InitializeTestStatus();
+            InitializeEvents();
+
             Logger.InitializeListView(TestMessagesContainer);
 
-            TestingTabHandler.SetTestNotStartedMode();
+            TestingTabHandler.SetAfterAppInitMode();
         }
 
         private void OnButtonStateChanged(string buttonName, bool isEnabled)
@@ -89,29 +77,29 @@ namespace WinFormsTestRunner
             if (!string.IsNullOrEmpty(scenarioPath))
             {
                 ScenarioPathText.Text = scenarioPath;
-                TestRunner.CreateTestScenario(scenarioPath);
+                TestRunner.LoadScenario(scenarioPath);
             }
         }
 
         private async void StartTestButton_Click(object sender, EventArgs e)
         {
-            TestingTabHandler.SetTestStartedMode();
+            TestingTabHandler.SetDuringTestMode();
             await TestRunner.RunAsync();
         }
 
         private void EndTestButton_Click(object sender, EventArgs e)
         {
-            TestingTabHandler.SetTestNotStartedMode();
+            TestingTabHandler.SetAfterTestEndedMode();
         }
 
         private void RetryStepButton_Click(object sender, EventArgs e)
         {
-            TestingTabHandler.SetTestStartedMode();
+            TestingTabHandler.SetDuringTestMode();
         }
 
         private void NextStepButton_Click(object sender, EventArgs e)
         {
-            TestingTabHandler.SetTestStartedMode();
+            TestingTabHandler.SetDuringTestMode();
         }
 
         private void OpenLogFileButton_Click(object sender, EventArgs e)
@@ -123,18 +111,14 @@ namespace WinFormsTestRunner
             });
         }
 
-        private void InitializeButtonEvents()
+        private void InitializeEvents()
         {
             TestingTabHandler.ButtonStateChanged += OnButtonStateChanged;
+            TestingTabHandler.TestStatusChanged += OnTestStatusChanged;
+
             NextStepButton.Click += (s, e) => TestRunner.TriggerUserAction("NextStep");
             RetryStepButton.Click += (s, e) => TestRunner.TriggerUserAction("RetryStep");
             EndTestButton.Click += (s, e) => TestRunner.TriggerUserAction("EndTest");
-        }
-
-        private void InitializeTestStatus()
-        {
-            TestingTabHandler.TestStatusChanged += OnTestStatusChanged;
-            TestingTabHandler.SetTestStatus("Oczekiwanie na wybór scenariusza");
         }
     }
 }

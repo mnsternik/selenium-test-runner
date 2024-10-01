@@ -1,76 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace WinFormsTestRunner.UI
+﻿namespace WinFormsTestRunner.UI
 {
     internal class SettingsTabHandler
     {
-        private static readonly Dictionary<string, bool> ButtonEnabledStates = new Dictionary<string, bool>();
-        private static readonly Dictionary<string, bool> TextboxReadonlyStates = new Dictionary<string, bool>();
+        private static readonly Dictionary<string, bool> ButtonStates = new Dictionary<string, bool>();
+        private static readonly Dictionary<string, bool> TextboxStates = new Dictionary<string, bool>();
 
         public static event Action<string, bool>? ButtonStateChanged;
         public static event Action<string, bool>? TextboxStateChanged; 
 
-        public static void SetButtonState(string buttonName, bool isEnabled)
+        public static void SetButtonStates(Dictionary<string, bool> buttonStates)
         {
-            if (!ButtonEnabledStates.TryAdd(buttonName, isEnabled))
+            foreach (var button in buttonStates)
             {
-                ButtonEnabledStates[buttonName] = isEnabled;
-            }
+                if (!ButtonStates.TryAdd(button.Key, button.Value))
+                {
+                    ButtonStates[button.Key] = button.Value;
+                }
 
-            ButtonStateChanged?.Invoke(buttonName, isEnabled);
+                ButtonStateChanged?.Invoke(button.Key, button.Value);
+            }
         }
 
         public static bool GetButtonState(string buttonName)
         {
-            return ButtonEnabledStates.TryGetValue(buttonName, out var isEnabled) && isEnabled;
+            return ButtonStates.TryGetValue(buttonName, out var isEnabled) && isEnabled;
         }
 
-        public static void SetTextboxState(string textboxName, bool isReadonly)
+        public static void SetTextboxStates(Dictionary<string, bool> textboxStates)
         {
-            if (!TextboxReadonlyStates.TryAdd(textboxName, isReadonly))
+            foreach (var textbox in textboxStates)
             {
-                TextboxReadonlyStates[textboxName] = isReadonly;
-            }
+                if (!TextboxStates.TryAdd(textbox.Key, textbox.Value))
+                {
+                    TextboxStates[textbox.Key] = textbox.Value;
+                }
 
-            TextboxStateChanged?.Invoke(textboxName, isReadonly);
+                TextboxStateChanged?.Invoke(textbox.Key, textbox.Value);
+            }
         }
 
         public static bool GetTextboxState(string textboxName)
         {
-            return TextboxReadonlyStates.TryGetValue(textboxName, out var isReadonly) && isReadonly;
+            return TextboxStates.TryGetValue(textboxName, out var isReadonly) && isReadonly;
         }
 
         public static void SetEditMode()
         {
-            SettingsTabHandler.SetButtonState("DriverPathButton", true);
-            SettingsTabHandler.SetButtonState("BrowserPathButton", true);
-            SettingsTabHandler.SetButtonState("EditConfigButton", false);
-            SettingsTabHandler.SetButtonState("CancelEditConfigButton", true);
-            SettingsTabHandler.SetButtonState("SaveConfigButton", true);
-
-            SettingsTabHandler.SetTextboxState("DriverPathText", false);
-            SettingsTabHandler.SetTextboxState("BrowserPathText", false);
-            SettingsTabHandler.SetTextboxState("WaitingTimeoutText", false);
-            SettingsTabHandler.SetTextboxState("StepDelayText", false);
+            SetButtonStates(editModeButtonStates);
+            SetTextboxStates(editModeTextboxStates);
         }
 
-        public static void SetViewMode()
+        public static void SetReadonlyMode()
         {
-            SettingsTabHandler.SetButtonState("DriverPathButton", false);
-            SettingsTabHandler.SetButtonState("BrowserPathButton", false);
-            SettingsTabHandler.SetButtonState("EditConfigButton", true);
-            SettingsTabHandler.SetButtonState("CancelEditConfigButton", false);
-            SettingsTabHandler.SetButtonState("SaveConfigButton", false);
-
-            SettingsTabHandler.SetTextboxState("DriverPathText", true);
-            SettingsTabHandler.SetTextboxState("BrowserPathText", true);
-            SettingsTabHandler.SetTextboxState("WaitingTimeoutText", true);
-            SettingsTabHandler.SetTextboxState("StepDelayText", true);
+            SetButtonStates(readonlyModeButtonStates);
+            SetTextboxStates(readonlyModeTextboxStates);
         }
+
+        private static readonly Dictionary<string, bool> editModeButtonStates = new Dictionary<string, bool>
+        {
+            { "DriverPathButton", true },
+            { "BrowserPathButton", true },
+            { "EditConfigButton", false },
+            { "CancelEditConfigButton", true },
+            { "SaveConfigButton", true },
+        };
+
+        private static readonly Dictionary<string, bool> editModeTextboxStates = new Dictionary<string, bool>
+        {
+            { "DriverPathText", false },
+            { "BrowserPathText", false },
+            { "WaitingTimeoutText", false },
+            { "StepDelayText", false },
+        };
+
+        private static readonly Dictionary<string, bool> readonlyModeButtonStates = new Dictionary<string, bool>
+        {
+            { "DriverPathButton", false },
+            { "BrowserPathButton", false },
+            { "EditConfigButton", true },
+            { "CancelEditConfigButton", false },
+            { "SaveConfigButton", false },
+        };
+
+        private static readonly Dictionary<string, bool> readonlyModeTextboxStates = new Dictionary<string, bool>
+        {
+            { "DriverPathText", true},
+            { "BrowserPathText", true },
+            { "WaitingTimeoutText", true },
+            { "StepDelayText", true },
+        };
     }
 }

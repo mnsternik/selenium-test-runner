@@ -18,9 +18,7 @@ namespace WinFormsTestRunner.Steps
 
         public override void HandleAction()
         {
-            TestingTabHandler.SetButtonState("NextStepButton", true);
-            TestingTabHandler.SetButtonState("EndTestButton", true);
-            TestingTabHandler.SetTestStatus("Oczekiwanie na akcje użytkownika");
+            TestingTabHandler.SetDuringManualStepMode();
 
             Logger.Log($"Uruchomiono krok ręczny: {Name}");
 
@@ -32,7 +30,7 @@ namespace WinFormsTestRunner.Steps
             switch (_userAction)
             {
                 case "NextStep":
-                    TestingTabHandler.SetTestStatus("Trwa wykonywanie scenariusza");
+                    TestingTabHandler.SetDuringTestMode();
                     break;
                 case "EndTest":
                     throw new UserCancelException();

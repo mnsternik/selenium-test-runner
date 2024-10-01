@@ -17,9 +17,9 @@ namespace WinFormsTestRunner.Steps
                     $" {step.Name}. Dostępne opcje to 'is-displayed', 'text', 'text-is-not', 'value', 'value-is-not");
             }
 
-            if (string.IsNullOrEmpty(step.Value))
+            if (Value == null)
             {
-                throw new InvalidStepParameterException($"Wskazano niepoprawną wartość paramteru {nameof(step.Value)}: '{Value}' w kroku: {step.Name}");
+                throw new InvalidStepParameterException($"Nie wskazano wartości paramteru {nameof(step.Value)}: '{Value}' w kroku: {step.Name}");
             }
 
             Name = step.Name;
