@@ -1,18 +1,34 @@
 ﻿using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WinFormsTestRunner.Exceptions;
-using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class SelectStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
+    internal class SelectStep : Step
     {
-        public string OptionType { get; set; } = step.OptionType ?? string.Empty;
-        public string Value { get; set; } = step.Value ?? string.Empty;
+        public SelectStep(Step step)
+        {
+            if (string.IsNullOrEmpty(step.ElementId) && string.IsNullOrEmpty(step.ElementXPath))
+            {
+                throw new InvalidStepParameterException($"Nie wskazano ID lub XPath elementu docelowego w kroku: {step.Name}");
+            }
+
+            if (step.OptionType != "value" || step.OptionType != "text" || step.OptionType != "index")
+            {
+                throw new InvalidStepParameterException($"Wskazano niepoprawny paramter {nameof(step.OptionType)}: '{OptionType}' w kroku {step.Name}, dostępne opcje to 'value', 'text', 'index'");
+            }
+
+            if (string.IsNullOrEmpty(step.Value))
+            {
+                throw new InvalidStepParameterException($"Wskazano niepoprawną wartość paramteru {nameof(step.Value)}: '{Value}' w kroku {step.Name}");
+            }
+
+            Name = step.Name;
+            Action = step.Action;
+            ElementId = step.ElementId;
+            ElementXPath = step.ElementXPath;
+            OptionType = step.OptionType;
+            Value = step.Value; 
+        }
 
         public override void HandleAction()
         {
@@ -28,8 +44,6 @@ namespace WinFormsTestRunner.Steps
                 case "index":
                     selectElement.SelectByIndex(Convert.ToInt32(Value));
                     break;
-                default:
-                    throw new InvalidStepParameterException($"Wskazano niepoprawny paramter 'OptionType': '{OptionType}', dostępne opcje to 'value', 'text', 'index'");
             }
         }
     }

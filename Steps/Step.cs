@@ -6,12 +6,17 @@ using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class Step(string name, string action, string? elementXPath, string? elementId)
+    internal class Step
     {
-        public string Name { get; set; } = name ?? string.Empty;
-        public string Action { get; set; } = action ?? string.Empty;
-        public string? ElementXPath { get; set; } = elementXPath;
-        public string? ElementId { get; set; } = elementId;
+        public string Action { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string? ElementId { get; set; } = string.Empty;
+        public string? ElementXPath { get; set; } = string.Empty;
+        public string? Url { get; set; } = string.Empty;
+        public string? Value { get; set; } = string.Empty;
+        public string? OptionType { get; set; } = string.Empty;
+        public string? CheckType { get; set; } = string.Empty;
+        public bool CheckInsideSelect { get; set; } = false;
 
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;
@@ -63,7 +68,7 @@ namespace WinFormsTestRunner.Steps
             switch (_userAction)
             {
                 case "NextStep":
-                    TestSummary.RecordError(); 
+                    TestSummary.RecordError();
                     break;
                 case "RetryStep":
                     ExecuteAndLog(stepCounter);

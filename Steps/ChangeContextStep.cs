@@ -1,27 +1,33 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsTestRunner.Core;
+﻿using WinFormsTestRunner.Core;
+using WinFormsTestRunner.Exceptions;
 using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class ChangeContextStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
+    internal class ChangeContextStep : Step
     {
-        public string ContextId { get; set; } = step.ContextId ?? string.Empty;
+        public ChangeContextStep(Step step)
+        {
+            if (string.IsNullOrEmpty(step.ElementId) && string.IsNullOrEmpty(step.ElementXPath))
+            {
+                throw new InvalidStepParameterException($"Nie wskazano ID lub XPath elementu docelowego w kroku: {step.Name}");
+            }
+
+            Name = step.Name;
+            Action = step.Action;
+            ElementId = step.ElementId;
+            ElementXPath = step.ElementXPath;
+        }
 
         public override void HandleAction()
         {
-            if (ContextId == "default")
+            if (ElementId == "default")
             {
                 TestRunner.Driver?.SwitchTo().DefaultContent();
             }
             else
             {
-                var iframe = TestRunner.Driver?.FindElement(By.Id(ContextId));
+                var iframe = GetElement();
                 TestRunner.Driver?.SwitchTo().Frame(iframe);
             }
         }

@@ -2,16 +2,34 @@
 using OpenQA.Selenium;
 using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Exceptions;
-using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class VerifyStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
+    internal class VerifyStep : Step
     {
-        public string CheckType { get; set; } = step.CheckType ?? string.Empty;
-        public string ExpectedValue { get; set; } = step.ExpectedValue ?? string.Empty;
-        public bool CheckInsideSelect { get; set; } = step.CheckInsideSelect ?? false;
         private IWebElement? _element;
+
+        public VerifyStep(Step step)
+        {
+            if (step.CheckType != "is-displayed" && step.CheckType != "text" && step.CheckType != "text-is-not" && step.CheckType != "value" && step.CheckType != "value-is-not")
+            {
+                throw new InvalidStepParameterException($"Wskazano niepoprawny paramter {nameof(step.CheckType)}: '{CheckType}' w kroku:" +
+                    $" {step.Name}. Dostępne opcje to 'is-displayed', 'text', 'text-is-not', 'value', 'value-is-not");
+            }
+
+            if (string.IsNullOrEmpty(step.Value))
+            {
+                throw new InvalidStepParameterException($"Wskazano niepoprawną wartość paramteru {nameof(step.Value)}: '{Value}' w kroku: {step.Name}");
+            }
+
+            Name = step.Name;
+            Action = step.Action;
+            ElementId = step.ElementId;
+            ElementXPath = step.ElementXPath;
+            CheckType = step.CheckType;
+            Value = step.Value;
+            CheckInsideSelect = step.CheckInsideSelect;
+        }
 
         public override void HandleAction()
         {
@@ -60,58 +78,58 @@ namespace WinFormsTestRunner.Steps
 
         private void AssertTextIsNot()
         {
-            bool isTextValid = WaitForAndCheckCondtition(driver => _element?.Text != ExpectedValue && !string.IsNullOrEmpty(_element?.Text));
+            bool isTextValid = WaitForAndCheckCondtition(driver => _element?.Text != Value && !string.IsNullOrEmpty(_element?.Text));
             if (isTextValid)
             {
                 
-                messageAfterLog = $"Sukces: Oczekiwano tekstu innego niż: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'";
+                messageAfterLog = $"Sukces: Oczekiwano tekstu innego niż: '{Value}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano tekstu innego niż: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'");
+                throw new InavlidVerificationException($"Oczekiwano tekstu innego niż: '{Value}', znaleziono tekst: '{_element?.Text}'");
             }
         }
 
         private void AssertTextIs()
         {
-            bool isTextEqualToExpected = WaitForAndCheckCondtition(driver => _element?.Text == ExpectedValue);
+            bool isTextEqualToExpected = WaitForAndCheckCondtition(driver => _element?.Text == Value);
             if (isTextEqualToExpected)
             {
-                messageAfterLog = $"Sukces: Oczekiwano tekstu: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'";
+                messageAfterLog = $"Sukces: Oczekiwano tekstu: '{Value}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano tekstu: '{ExpectedValue}', znaleziono tekst: '{_element?.Text}'");
+                throw new InavlidVerificationException($"Oczekiwano tekstu: '{Value}', znaleziono tekst: '{_element?.Text}'");
             }
         }
 
         private void AssertValueIsNot()
         {
             bool isValueValid = WaitForAndCheckCondtition(driver =>
-                _element?.GetAttribute("value") != ExpectedValue
+                _element?.GetAttribute("value") != Value
                 && !string.IsNullOrEmpty(_element?.GetAttribute("Value"))
             );
 
             if (isValueValid)
             {
-                messageAfterLog = $"Sukces: Oczekiwano wartości innej niż: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
+                messageAfterLog = $"Sukces: Oczekiwano wartości innej niż: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano wartości innej niż: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
+                throw new InavlidVerificationException($"Oczekiwano wartości innej niż: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
             }
         }
 
         private void AssertValueIs()
         {
-            bool isValueEqualToExpected = WaitForAndCheckCondtition(driver => _element?.GetAttribute("value") == ExpectedValue);
+            bool isValueEqualToExpected = WaitForAndCheckCondtition(driver => _element?.GetAttribute("value") == Value);
             if (isValueEqualToExpected)
             {
-                messageAfterLog = $"Sukces: Oczekiwano wartości: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
+                messageAfterLog = $"Sukces: Oczekiwano wartości: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
-                throw new InavlidVerificationException($"Oczekiwano wartości: '{ExpectedValue}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
+                throw new InavlidVerificationException($"Oczekiwano wartości: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'");
             }
         }
 

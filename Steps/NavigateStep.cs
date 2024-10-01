@@ -1,16 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsTestRunner.Core;
-using WinFormsTestRunner.Models;
+﻿using WinFormsTestRunner.Core;
+using WinFormsTestRunner.Exceptions;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class NavigateStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
-    {
-        public string Url { get; set; } = step.Url ?? string.Empty;
+    internal class NavigateStep : Step
+    { 
+        public NavigateStep(Step step)
+        {
+            if (string.IsNullOrEmpty(step.Url))
+            {
+                throw new InvalidStepParameterException($"Nie wskazano adresu URL w kroku: {step.Name}"); 
+            }
+            else
+            {
+                Url = step.Url;
+            }
+
+            Name = step.Name;
+            Action = step.Action;
+        }
 
         public override void HandleAction()
         {

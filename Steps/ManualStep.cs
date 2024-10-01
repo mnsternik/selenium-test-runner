@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsTestRunner.Core;
+﻿using WinFormsTestRunner.Core;
 using WinFormsTestRunner.Exceptions;
-using WinFormsTestRunner.Models;
 using WinFormsTestRunner.UI;
 using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Steps
 {
-    internal class ManualStep(GenericStep step) : Step(step.Name, step.Action, step.ElementXPath, step.ElementId)
+    internal class ManualStep : Step
     {
         private static ManualResetEvent _waitHandle = new ManualResetEvent(false);
         private static string? _userAction;
+
+        public ManualStep(Step step)
+        {
+            Name = step.Name;
+            Action = step.Action;
+        }
 
         public override void HandleAction()
         {
