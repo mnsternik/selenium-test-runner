@@ -1,27 +1,26 @@
 ﻿using OpenQA.Selenium.Firefox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WinFormsTestRunner.Configuration;
-using WinFormsTestRunner.Models;
 using WinFormsTestRunner.Steps;
 using WinFormsTestRunner.Utilities;
 using WinFormsTestRunner.Exceptions;
 using WinFormsTestRunner.UI;
+using WinFormsTestRunner.Models;
 
 namespace WinFormsTestRunner.Core
 {
     internal class TestRunner
     {
-        private static List<Step> _steps = new List<Step>();
-        private static string _scenarioName = string.Empty;
+        private static TestScenario? ts = null; 
         private static int _stepCounter = 0;
 
         public static FirefoxDriver? Driver { get; set; }
 
         public static event Action<string>? UserActionOccurred;
+
+        public static void LoadScenario(string path)
+        {
+            ts = TestScenario.LoadScenario(path);
+        }
 
         public async static Task RunAsync()
         {
@@ -44,9 +43,9 @@ namespace WinFormsTestRunner.Core
 
         public async static Task ExecuteStepsAsync()
         {
-            Logger.Log($"Uruchamianie scenariusza testowego: {_scenarioName}", true);
+            Logger.Log($"Uruchamianie scenariusza testowego: {ts.Name}", true);
 
-            foreach (var step in _steps)
+            foreach (var step in ts.Steps)
             {
                 await Task.Run(() => step.ExecuteAndLog(_stepCounter));
                 await Task.Delay(ConfigManager.Config.StepDelay * 1000);
@@ -71,32 +70,6 @@ namespace WinFormsTestRunner.Core
             TestSummary.DisplaySummary();
             TestSummary.Reset();
             Driver?.Dispose();
-        }
-
-        public static void CreateTestScenario(string scenarioPath)
-        {
-            try
-            {
-                TestScenario ts = TestScenario.LoadScenario(scenarioPath);
-                _scenarioName = ts.Name;
-                _steps.Clear();
-                _steps = CreateListOfSteps(ts);
-                TestingTabHandler.SetTestStatus("Gotowy do uruchomienia");
-            }
-            catch (InvalidScenarioException ex)
-            {
-                Logger.Log(ex.Message);
-            }
-        }
-
-        public static List<Step> CreateListOfSteps(TestScenario ts)
-        {
-            List<Step> steps = new List<Step>();
-            foreach (var step in ts.Steps)
-            {
-                steps.Add(GenericStep.TransformIntoSpecifedStep(step));
-            }
-            return steps;
         }
 
         public static void TriggerUserAction(string action)
