@@ -46,7 +46,7 @@
             // 
             // EndTestButton
             // 
-            EndTestButton.Location = new Point(641, 442);
+            EndTestButton.Location = new Point(641, 443);
             EndTestButton.Margin = new Padding(4, 3, 4, 3);
             EndTestButton.Name = "EndTestButton";
             EndTestButton.Size = new Size(190, 26);
@@ -57,7 +57,7 @@
             // 
             // RetryStepButton
             // 
-            RetryStepButton.Location = new Point(232, 442);
+            RetryStepButton.Location = new Point(232, 443);
             RetryStepButton.Margin = new Padding(4, 3, 4, 3);
             RetryStepButton.Name = "RetryStepButton";
             RetryStepButton.Size = new Size(175, 26);
@@ -68,7 +68,7 @@
             // 
             // NextStepButton
             // 
-            NextStepButton.Location = new Point(415, 442);
+            NextStepButton.Location = new Point(415, 443);
             NextStepButton.Margin = new Padding(4, 3, 4, 3);
             NextStepButton.Name = "NextStepButton";
             NextStepButton.Size = new Size(218, 26);
@@ -128,14 +128,14 @@
             // 
             // TestMessagesContainer
             // 
-            TestMessagesContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TestMessagesContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             TestMessagesContainer.AutoArrange = false;
             TestMessagesContainer.Columns.AddRange(new ColumnHeader[] { StepCounterColumn, StepNameColumn, StepStatusColumn });
             TestMessagesContainer.FullRowSelect = true;
             TestMessagesContainer.LabelWrap = false;
             TestMessagesContainer.Location = new Point(232, 15);
             TestMessagesContainer.Name = "TestMessagesContainer";
-            TestMessagesContainer.Size = new Size(599, 421);
+            TestMessagesContainer.Size = new Size(874, 421);
             TestMessagesContainer.TabIndex = 22;
             TestMessagesContainer.UseCompatibleStateImageBehavior = false;
             TestMessagesContainer.View = View.Details;
@@ -147,7 +147,7 @@
             // StepNameColumn
             // 
             StepNameColumn.Text = "Nazwa kroku";
-            StepNameColumn.Width = 475;
+            StepNameColumn.Width = 750;
             // 
             // StepStatusColumn
             // 
@@ -189,7 +189,7 @@
             Controls.Add(TestStatusText);
             Controls.Add(TestStatusLabel);
             Name = "TestingTabControl";
-            Size = new Size(845, 476);
+            Size = new Size(1110, 476);
             Load += TestingTabControl_Load;
             ResumeLayout(false);
             PerformLayout();

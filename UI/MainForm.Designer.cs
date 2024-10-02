@@ -46,7 +46,7 @@
             settingsTab.Margin = new Padding(4, 3, 4, 3);
             settingsTab.Name = "settingsTab";
             settingsTab.Padding = new Padding(4, 3, 4, 3);
-            settingsTab.Size = new Size(896, 483);
+            settingsTab.Size = new Size(1220, 482);
             settingsTab.TabIndex = 1;
             settingsTab.Text = "Ustawienia";
             // 
@@ -61,11 +61,11 @@
             // 
             tab.Controls.Add(testingTab);
             tab.Controls.Add(settingsTab);
-            tab.Location = new Point(-4, -1);
+            tab.Location = new Point(-4, 0);
             tab.Margin = new Padding(4, 3, 4, 3);
             tab.Name = "tab";
             tab.SelectedIndex = 0;
-            tab.Size = new Size(904, 511);
+            tab.Size = new Size(1125, 510);
             tab.TabIndex = 0;
             // 
             // testingTab
@@ -76,7 +76,7 @@
             testingTab.Margin = new Padding(4, 3, 4, 3);
             testingTab.Name = "testingTab";
             testingTab.Padding = new Padding(4, 3, 4, 3);
-            testingTab.Size = new Size(896, 483);
+            testingTab.Size = new Size(1117, 482);
             testingTab.TabIndex = 0;
             testingTab.Text = "Testowanie";
             // 
@@ -85,15 +85,16 @@
             testingTabControl.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             testingTabControl.AutoSize = true;
             testingTabControl.Location = new Point(0, 0);
+            testingTabControl.Margin = new Padding(0);
             testingTabControl.Name = "testingTabControl";
-            testingTabControl.Size = new Size(845, 477);
+            testingTabControl.Size = new Size(1109, 474);
             testingTabControl.TabIndex = 0;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(846, 507);
+            ClientSize = new Size(1118, 507);
             Controls.Add(tab);
             Font = new Font("Segoe UI", 9F);
             Margin = new Padding(4, 3, 4, 3);

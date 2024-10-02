@@ -200,7 +200,7 @@
             Controls.Add(DriverPathText);
             Controls.Add(DriverPathLabel);
             Name = "SettingsTabControl";
-            Size = new Size(845, 476);
+            Size = new Size(1236, 546);
             ((System.ComponentModel.ISupportInitialize)StepDelayNumericUpDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)WaitingTimeoutNumericUpDown).EndInit();
             ResumeLayout(false);

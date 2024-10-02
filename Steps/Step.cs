@@ -65,13 +65,13 @@ namespace WinFormsTestRunner.Steps
             switch (_userAction)
             {
                 case "NextStep":
-                    TestSummary.RecordError();
+                    TestSummary.RecordError(Name, message);
                     break;
                 case "RetryStep":
                     ExecuteAndLog(stepCounter);
                     break;
                 case "EndTest":
-                    TestSummary.RecordError();
+                    TestSummary.RecordError(Name, message);
                     throw new UserCancelException();
             }
 
