@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WinFormsTestRunner.Utilities;
+﻿using WinFormsTestRunner.Utilities;
 
 namespace WinFormsTestRunner.Core
 {
     internal class TestSummary
     {
         private static int _errorCount;
+        private static readonly Dictionary<string, string>? _errorDetails = []; 
 
-        public static void RecordError()
+        public static void RecordError(string stepName, string errorMessage)
         {
             _errorCount++;
+            _errorDetails.Add(stepName, errorMessage);
         }
 
         public static int GetErrorCount()
@@ -31,7 +28,13 @@ namespace WinFormsTestRunner.Core
             if (HasErrors())
             {
                 Logger.Log($"KONIEC: Test zakończył się z liczbą błędów: {_errorCount}");
-                //Logger.Log($"Szczegóły w logu: {Logger.LogFilePath}"); 
+                Logger.Log("Lista błędów:");
+                
+                foreach ( var error in _errorDetails)
+                {
+                    Logger.Log($"{error.Key}");
+                    Logger.Log($"{error.Value}");
+                }
             }
             else
             {
