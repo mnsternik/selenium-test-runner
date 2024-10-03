@@ -28,23 +28,29 @@ namespace WinFormsTestRunner.Steps
             try
             {
                 HandleAction();
-                Logger.Log($"{Name}", true);
-                ShowAdditionalMessageAfterLog();
+                Logger.Log($"{Name}", true, "Sukces");
             }
             catch (TestRunnerException ex)
             {
-                Logger.Log(ex.Message, false);
+                Logger.Log($"{Name}", true, "Błąd");
+                Logger.Log($"{ex.Message}", false);
                 HandleFailure(stepCounter, ex.Message);
             }
             catch (OpenQA.Selenium.ElementNotInteractableException ex)
             {
-                Logger.Log($"{Name} - Nie można podjąć interkacji ze wskazanym elementem.", false);
+                Logger.Log($"{Name}", true, "Błąd");
+                Logger.Log($"Błąd: Nie można podjąć interkacji ze wskazanym elementem", false);
                 HandleFailure(stepCounter, ex.Message);
             }
             catch (OpenQA.Selenium.NoSuchElementException ex)
             {
-                Logger.Log($"{Name} - Nie odnaleziono oczekiwanego elementu na stronie.", false);
+                Logger.Log($"{Name}", true, "Błąd");
+                Logger.Log($"Błąd: Nie odnaleziono oczekiwanego elementu na stronie", false);
                 HandleFailure(stepCounter, ex.Message);
+            }
+            finally
+            {
+                ShowAdditionalMessageAfterLog();
             }
         }
 
