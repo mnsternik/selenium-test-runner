@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
-using WinFormsTestRunner.Configuration;
-
-namespace WinFormsTestRunner.Utilities
+﻿namespace WinFormsTestRunner.Utilities
 {
     internal class Logger
     {
@@ -24,60 +19,52 @@ namespace WinFormsTestRunner.Utilities
             _listView = listView;
         }
 
-        public static void Log(string message, bool isSuccess)
+        // Log method with optional time and status
+        public static void Log(string message, bool showTime = false, string? status = null)
         {
-            AddMessage(message, isSuccess ? "Sukces" : "Błąd");
+            string timestamp = showTime ? DateTime.Now.ToString("HH:mm:ss") : string.Empty;
+            AddMessage(timestamp, message, status);
         }
 
-        public static void Log(string message)
+        private static void AddMessage(string timestamp, string message, string? status = null)
         {
-            AddMessage(message);
-        }
-
-        private static void AddMessage(string message, string? status = null)
-        {
-            // Logowanie w aplikacji
+            // Log in application
             if (_listView != null)
             {
+                void action() => AddMessageToListView(timestamp, message, status);
                 if (_listView.InvokeRequired)
                 {
-                    _listView.Invoke(new Action(() => AddMessageToListView(message, status)));
+                    _listView.Invoke(new Action(action));
                 }
                 else
                 {
-                    AddMessageToListView(message, status);
+                    action();
                 }
             }
 
-            // Logowanie do pliku
-            WriteLogToFile(message, status);
+            // Log to file
+            WriteLogToFile(timestamp, message, status);
         }
 
-        private static void AddMessageToListView(string message, string? status = null)
+        private static void AddMessageToListView(string timestamp, string message, string? status = null)
         {
-            var listViewItem = new ListViewItem(DateTime.Now.ToString("HH:mm:ss"))
-            {
-                SubItems = { message }
-            };
-
+            var listViewItem = timestamp != string.Empty ? new ListViewItem(timestamp) : new ListViewItem();
+            listViewItem.SubItems.Add(message);
             if (status != null)
             {
                 listViewItem.SubItems.Add(status);
             }
-
             _listView.Items.Add(listViewItem);
             _listView.EnsureVisible(_listView.Items.Count - 1);
         }
 
-        private static void WriteLogToFile(string message, string? status = null)
+        private static void WriteLogToFile(string timestamp, string message, string? status = null)
         {
-            string logMessage = $"{DateTime.Now:HH:mm:ss} - {message}";
-
+            string logMessage = timestamp != string.Empty ? $"{timestamp} - {message}" : message;
             if (status != null)
             {
                 logMessage += $" - {status}";
             }
-
             logMessage += Environment.NewLine;
 
             try
@@ -86,7 +73,7 @@ namespace WinFormsTestRunner.Utilities
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Wystąpił błąd podczas zapisywania do pliku logu: {ex.Message}", "Log error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error writing to log file: {ex.Message}", "Log Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -97,12 +84,12 @@ namespace WinFormsTestRunner.Utilities
                 Directory.CreateDirectory(_logsDirectoryPath);
                 if (!File.Exists(LogFilePath))
                 {
-                    File.Create(LogFilePath).Dispose(); 
+                    File.Create(LogFilePath).Dispose();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Wystąpił błąd podczas tworzenia pliku logu: {ex.Message}", "Log error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error creating log file: {ex.Message}", "Log Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
