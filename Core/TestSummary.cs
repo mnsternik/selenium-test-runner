@@ -32,14 +32,15 @@ namespace WinFormsTestRunner.Core
                 
                 foreach ( var error in _errorDetails)
                 {
-                    Logger.Log($"{error.Key}");
-                    Logger.Log($"{error.Value}");
+                    Logger.Log($"- {error.Key} - {error.Value}");
                 }
             }
             else
             {
                 Logger.Log("KONIEC: Test zakończył się bez błędów");
             }
+
+            Reset();
         }
 
         public static void Reset()
