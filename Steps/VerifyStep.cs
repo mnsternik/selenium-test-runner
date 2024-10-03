@@ -82,7 +82,7 @@ namespace WinFormsTestRunner.Steps
             if (isTextValid)
             {
                 
-                messageAfterLog = $"Sukces: Oczekiwano tekstu innego niż: '{Value}', znaleziono tekst: '{_element?.Text}'";
+                messageAfterLog = $"Oczekiwano tekstu innego niż: '{Value}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
@@ -95,7 +95,7 @@ namespace WinFormsTestRunner.Steps
             bool isTextEqualToExpected = WaitForAndCheckCondtition(driver => _element?.Text == Value);
             if (isTextEqualToExpected)
             {
-                messageAfterLog = $"Sukces: Oczekiwano tekstu: '{Value}', znaleziono tekst: '{_element?.Text}'";
+                messageAfterLog = $"Oczekiwano tekstu: '{Value}', znaleziono tekst: '{_element?.Text}'";
             }
             else
             {
@@ -112,7 +112,7 @@ namespace WinFormsTestRunner.Steps
 
             if (isValueValid)
             {
-                messageAfterLog = $"Sukces: Oczekiwano wartości innej niż: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
+                messageAfterLog = $"Oczekiwano wartości innej niż: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
@@ -125,7 +125,7 @@ namespace WinFormsTestRunner.Steps
             bool isValueEqualToExpected = WaitForAndCheckCondtition(driver => _element?.GetAttribute("value") == Value);
             if (isValueEqualToExpected)
             {
-                messageAfterLog = $"Sukces: Oczekiwano wartości: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
+                messageAfterLog = $"Oczekiwano wartości: '{Value}', znaleziono wartość: '{_element?.GetAttribute("value")}'";
             }
             else
             {
