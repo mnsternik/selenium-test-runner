@@ -37,7 +37,6 @@ namespace WinFormsTestRunner.Core
             }
             finally
             {
-                TestingTabHandler.SetAfterTestEndedMode();
                 FinilizeTest();
             }
         }
@@ -56,9 +55,9 @@ namespace WinFormsTestRunner.Core
 
         private static void FinilizeTest()
         {
+            TestingTabHandler.SetAfterTestEndedMode();
             TestSummary.DisplaySummary();
-            TestSummary.Reset();
-            Driver?.Dispose();
+            //Driver?.Dispose();
         }
 
         public static void TriggerUserAction(string action)
