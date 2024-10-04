@@ -12,7 +12,7 @@ namespace WinFormsTestRunner.Steps
                 throw new InvalidStepParameterException($"Nie wskazano ID lub XPath elementu docelowego w kroku: {step.Name}");
             }
 
-            if (step.OptionType != "value" || step.OptionType != "text" || step.OptionType != "index")
+            if (step.OptionType != "value" && step.OptionType != "text" && step.OptionType != "index")
             {
                 throw new InvalidStepParameterException($"Wskazano niepoprawny paramter {nameof(step.OptionType)}: '{OptionType}' w kroku {step.Name}, dostępne opcje to 'value', 'text', 'index'");
             }
