@@ -6,6 +6,8 @@
 
 Test automation solution for web applications, featuring a modular architecture and JSON-based test scenarios.
 
+![Application UI](https://github.com/user-attachments/assets/da94ebc3-176a-43c8-966d-545c7c59ab66)
+
 ## 📌 Project Overview
 
 A Windows Forms application designed for QA automation that:
@@ -60,7 +62,7 @@ A Windows Forms application designed for QA automation that:
 ### Prerequisites
 - .NET 6.0 SDK
 - Firefox browser (default)
-- geckodriver (included in config directory)
+- geckodriver (can be downloaded [here](https://github.com/mozilla/geckodriver/releases))
 
 ### Installation
 ```bash
